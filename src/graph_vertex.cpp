@@ -1,31 +1,31 @@
 #include "../lib/graph_vertex.h"
 
-
-template<typename T>
-GraphVertex<T>::GraphVertex() {
-
-}
-
-template<typename T>
-GraphVertex<T>::GraphVertex(string name, T data) {
+template<typename TData,typename TName>
+GraphVertex<TData, TName>::GraphVertex() {
 
 }
 
-template<typename T>
-void GraphVertex<T>::setData(T data) {
-    GraphVertex::data = data;
-}
-template<typename T>
-T GraphVertex<T>::getData() const {
-    return data;
+template<typename TData,typename TName>
+GraphVertex<TData, TName>::GraphVertex(TName name, TData data) {
+
 }
 
-template<typename T>
-const string &GraphVertex<T>::getName() const {
+template<typename TData,typename TName>
+TData GraphVertex<TData, TName>::getData() const {
+    return nullptr;
+}
+
+template<typename TData,typename TName>
+void GraphVertex<TData, TName>::setData(TData data) {
+
+}
+
+template<typename TData,typename TName>
+TName GraphVertex<TData, TName>::getName() const {
     return name;
 }
 
-template<typename T>
-void GraphVertex<T>::setName(const string &name) {
+template<typename TData,typename TName>
+void GraphVertex<TData, TName>::setName(TName name) {
     GraphVertex::name = name;
 }

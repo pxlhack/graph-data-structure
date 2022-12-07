@@ -1,39 +1,26 @@
-//
-// Created by pxlhack on 07.12.22.
-//
-
 #ifndef GRAPH_GRAPH_VERTEX_H
 #define GRAPH_GRAPH_VERTEX_H
 
-
-#include <string>
-
 using namespace std;
 
-template<typename T>
+template<typename TData, typename TName>
 class GraphVertex {
 private:
-    string name;
-    T data;
+    TData data;
+    TName name;
     int index;
 public:
     GraphVertex();
 
-    GraphVertex(string name, T data);
+    GraphVertex(TName name, TData data);
 
-    const string &getName() const;
+    TData getData() const;
 
-    void setName(const string &name);
+    void setData(TData data);
 
-    T getData() const;
+    TName getName() const;
 
-    void setData(T data);
-
-
-
+    void setName(TName name);
 };
-
-
-
 
 #endif //GRAPH_GRAPH_VERTEX_H
