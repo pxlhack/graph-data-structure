@@ -1,6 +1,6 @@
 #include "../lib/graph.h"
 
-template<typename T, typename P>
-Graph<T,P>::Graph() {
-
+template<class GraphVertex, class GraphEdge>
+Graph<GraphVertex, GraphEdge>::Graph() {
+    graphForm = new LGraphForm();
 }
