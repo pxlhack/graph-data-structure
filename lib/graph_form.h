@@ -38,6 +38,8 @@ public:
 
     virtual std::string toString() = 0;
 
+    virtual bool isEdge(int id1, int id2) = 0;
+
 protected:
     int edge_number;
     int vertex_number;

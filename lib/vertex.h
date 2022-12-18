@@ -34,6 +34,14 @@ public:
         this->name = name;
     };
 
+    int getIndex() const {
+        return index;
+    }
+
+    void setIndex(int index) {
+        this->index = index;
+    }
+
 private:
     TData data;
     TName name;

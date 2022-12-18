@@ -109,9 +109,30 @@ public:
         return graphForm->insertEdge(vertex1, vertex2);
     };
 
-    void toList() {
+    /*void toList() {
+        // не лист
         if (!isDense()) {
+            GraphForm<V, E> *newData = new ListForm<V, E>(this->directed);
+            vector<V *> vector;
+            for (int i = 0; i < vertices.size(); ++i) {
+                V *vertex = newData->insertVertex();
+                vector.push_back(vertex);
+            }
 
+            for (V *vertex1: vector) {
+                for (V *vertex2: vector) {
+                    if (graphForm->isEdge())
+                }
+            }
+
+            for (int i = 0; i < vertices.size(); ++i)
+                for (int j = 0; j < vertices.size(); ++j)
+                    if ((dynamic_cast<MatrixForm<V, E> *>(graphForm))->hasEdge(i, j))
+                        (dynamic_cast<ListForm<V, E> *>(newData))->insertEdge(i, j,
+                                                                              (dynamic_cast<MatrixForm<V, E> *>(graphForm))->getEdge(
+                                                                                      i, j));
+            delete graphForm;
+            graphForm = newData;
         }
     }
 
@@ -119,10 +140,14 @@ public:
         if (isDense()) {
 
         }
-    }
+    }*/
 
     std::string toString() {
         return graphForm->toString();
+    }
+
+    bool isEdge(int id1, int id2) {
+        return this->graphForm->isEdge(id1, id2);
     }
 
 private:

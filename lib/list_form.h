@@ -12,6 +12,8 @@ public:
 
     E *insertEdge(V *V1, V *V2) override {
         int id1 = GraphForm<V, E>::getId(V1), id2 = GraphForm<V, E>::getId(V2);
+        V1->setIndex(id1);
+        V2->setIndex(id2);
         E *edge = new E(V1, V2);
         for (int i = 0; i < this->container[id1].size(); i++) {
             if (!this->directed && isDesired(V1, V2, this->container[id1][i]))
@@ -25,6 +27,22 @@ public:
             this->container[id2].push_back(edge);
         return edge;
     }
+
+//    bool insertEdge(int v1, int v2, E *t) {
+//            int size = edgeList.size();
+//            if (v1 < 0 || v2 < 0 || v1 >= size || v2 >= size)
+//                return false;
+//            if (v1 == v2 || hasEdge(v1, v2))  //Петля или ребро уже есть
+//                return false;
+//            //Вставляем ребро
+//            Node node;
+//            node.edge = t;
+//            node.v2 = v2;
+//            edgeList[v1].push_back(node);
+//            return true;
+//    }
+
+
 
     V *insertVertex() override {
         V *vertex = new V();
@@ -106,6 +124,19 @@ public:
         }
         return sstr->str();
     }
+
+    bool isEdge(int id1, int id2) override {
+        vector<E *> edgeVector = this->container[id1];
+        V *v1 = this->vertices[id1];
+        V *v2 = this->vertices[id2];
+
+        for (E *e: edgeVector) {
+            bool flag = isDesired(v1, v2, e);
+            if (flag) return true;
+        }
+        return false;
+    };
+
 
 private:
     bool isDesired(V *V1, V *V2, E *e) {
