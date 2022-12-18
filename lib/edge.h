@@ -6,77 +6,50 @@
 template<class V, typename TData, typename TWeight>
 class Edge {
 public:
-    Edge(V *v1, V *v2);
+    Edge(V *v1, V *v2) {
+        this->v1 = v1;
+        this->v2 = v2;
+    };
 
-    Edge(V *v1, V *v2, TWeight weight);
+    Edge(V *v1, V *v2, TWeight weight) {
+        Edge(v1, v2);
+        this->weight = weight;
+    };
 
-    Edge(V *v1, V *v2, TWeight weight, TData data);
+    Edge(V *v1, V *v2, TWeight weight, TData data) {
+        Edge(v1, v2, weight);
+        this->data = data;
+    };
 
-    V *getV1();
+    V *getV1() {
+        return v1;
+    };
 
-    V *getV2();
+    V *getV2() {
+        return v2;
+    };
 
-    TWeight getWeight();
+    TWeight getWeight() {
+        return weight;
+    };
 
-    TData getData();
+    TData getData() {
+        return data;
+    };
 
-    void setWeight(TWeight weight);
+    void setWeight(TWeight weight) {
+        this->weight = weight;
+    };
 
-    void setData(TData data);
+    void setData(TData data) {
+        this->data = data;
+    };
 
 private:
-    V *vertex1, *vertex2;
+    V *v1, *v2;
     TWeight weight;
     TData data;
 };
-
-template<class V, typename TData, typename TWeight>
-Edge<V, TData, TWeight>::Edge(V *v1, V *v2) {
-    this->vertex1 = v1;
-    this->vertex2 = v2;
-}
-
-template<class V, typename TData, typename TWeight>
-Edge<V, TData, TWeight>::Edge(V *v1, V *v2, TWeight weight) {
-    Edge<V, TData, TWeight>(v1, v2);
-    this->weight = weight;
-}
-
-template<class V, typename TData, typename TWeight>
-Edge<V, TData, TWeight>::Edge(V *v1, V *v2, TWeight weight, TData data) {
-    Edge<V, TData, TWeight>(v1, v2, weight);
-    this->data = data;
-}
-
-template<class V, typename TData, typename TWeight>
-V *Edge<V, TData, TWeight>::getV1() {
-    return vertex1;
-}
-
-template<class V, typename TData, typename TWeight>
-V *Edge<V, TData, TWeight>::getV2() {
-    return vertex2;
-}
-
-template<class V, typename TData, typename TWeight>
-TWeight Edge<V, TData, TWeight>::getWeight() {
-    return weight;
-}
-
-template<class V, typename TData, typename TWeight>
-TData Edge<V, TData, TWeight>::getData() {
-    return data;
-}
-
-template<class V, typename TData, typename TWeight>
-void Edge<V, TData, TWeight>::setWeight(TWeight weight) {
-    this->weight = weight;
-}
-
-template<class V, typename TData, typename TWeight>
-void Edge<V, TData, TWeight>::setData(TData data) {
-    this->data = data;
-}
 
 
 #endif //GRAPH_EDGE_H
