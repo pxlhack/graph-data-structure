@@ -15,8 +15,8 @@ public:
 
     Vertex(TName name, TData data) {
         Vertex();
-        *(this->data) = data;
-        *(this->name) = name;
+        this->data = data;
+        this->name = name;
         cout << "V(name, data)\n";
     };
 

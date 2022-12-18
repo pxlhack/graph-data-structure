@@ -22,7 +22,7 @@ public:
     };
 
 
-    Graph(int vCount, bool directed = false, bool dense = true) {
+    Graph(int vertexNumber, bool directed = false, bool dense = true) {
         this->directed = directed;
 
         if (dense) {
@@ -31,14 +31,14 @@ public:
             graphForm = new MatrixForm<V, E>(directed);
         }
 
-        for (int i = 0; i < vCount; ++i) {
+        for (int i = 0; i < vertexNumber; ++i) {
             graphForm->insertVertex();
         }
-        cout << "Graph(vCount, directed, dense)\n";
+        cout << "Graph(vertexNumber, directed, dense)\n";
     }
 
 
-    Graph(int vCount, int eCount, bool directed = false, bool dense = true) {
+    Graph(int vertexNumber, int edgeNumber, bool directed = false, bool dense = true) {
         this->directed = directed;
         if (dense) {
             graphForm = new LinearForm<V, E>(directed);
@@ -46,21 +46,21 @@ public:
             graphForm = new MatrixForm<V, E>(directed);
         }
         if (directed) {
-            int max_edges = (vCount * (vCount - 1) + vCount);
-            if (eCount > max_edges) eCount = max_edges;
+            int max_edges = (vertexNumber * (vertexNumber - 1) + vertexNumber);
+            if (edgeNumber > max_edges) edgeNumber = max_edges;
         } else {
-            int max_edges = (vCount * (vCount - 1) / 2 + vCount);
-            if (eCount > max_edges) eCount = max_edges;
+            int max_edges = (vertexNumber * (vertexNumber - 1) / 2 + vertexNumber);
+            if (edgeNumber > max_edges) edgeNumber = max_edges;
         }
         vector<V *> vertices;
-        for (int i = 0; i < vCount; i++) {
+        for (int i = 0; i < vertexNumber; i++) {
             V *vertex = graphForm->insertVertex();
             vertices.push_back(vertex);
         }
         srand(time(NULL));
-        for (int i = 0; i < eCount;) {
-            int id1 = rand() % vCount;
-            int id2 = rand() % vCount;
+        for (int i = 0; i < edgeNumber;) {
+            int id1 = rand() % vertexNumber;
+            int id2 = rand() % vertexNumber;
             E *edge = graphForm->insertEdge(vertices[id1], vertices[id2]);
             if (edge != nullptr)
                 i++;
@@ -68,12 +68,12 @@ public:
         cout << "Graph(), dense = " << dense << "\n";
     };
 
-    int vCount() {
-        return 0;
+    int getVertexNumber() {
+        return this->graphForm->getVertexNumber();
     };
 
-    int eCount() {
-        return 0;
+    int getEdgeNumber() {
+        return this->graphForm->getEdgeNumber();
     };
 
     bool isDirected() const {
@@ -84,7 +84,11 @@ public:
         return dynamic_cast<const LinearForm<V *, E>>(graphForm);
     }
 
-    double K();
+    double K() {
+        double e = this->graphForm->getEdgeNumber();
+        double v = this->graphForm->getVertexNumber();
+        return directed ? (e / (v * (v - 1))) : (2 * e / (v * (v - 1)));
+    };
 
     V *insertV() {
         V *vertex = graphForm->insertVertex();

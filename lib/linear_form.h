@@ -44,7 +44,7 @@ public:
         return false;
     }
 
-    bool deleteVertex(V *V1, V *V2) override {
+    bool deleteVertex(V *v) override {
         return false;
     }
 

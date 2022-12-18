@@ -33,7 +33,7 @@ public:
 
     virtual bool deleteEdge(V *V1, V *V2) = 0;
 
-    virtual bool deleteVertex(V *V1, V *V2) = 0;
+    virtual bool deleteVertex(V *v) = 0;
 
     virtual void clear() = 0;
 
