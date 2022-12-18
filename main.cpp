@@ -4,7 +4,9 @@
 #include "lib/graph_edge.h"
 
 int main() {
-    Graph<GraphVertex<int, int>, GraphEdge<int, int, int>> graph;
-    cout << graph.isDense() << endl;
+    Graph<Vertex<int, int>, Edge<int, int, int>> graph(10);
+//    cout << graph.isDense() << endl;
+
+
     return 0;
 }

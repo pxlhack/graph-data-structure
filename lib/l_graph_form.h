@@ -3,8 +3,14 @@
 
 #include "graph_form.h"
 
-class LGraphForm : public GraphForm {
-    void foo() override {}
+template<class GraphVertex>
+class LGraphForm : public GraphForm<GraphVertex> {
+public:
+    LGraphForm() {
+        cout <<"LGraphFrom constructor\n";
+    }
+
+    void setVector(vector<GraphVertex*>& vertexVector) override {}
 };
 
 
