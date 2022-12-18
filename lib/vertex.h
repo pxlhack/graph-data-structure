@@ -10,14 +10,12 @@ public:
         data = TData(0);
         name = TName(0);
         index = -1;
-        cout << "V()\n";
     };
 
     Vertex(TName name, TData data) {
         Vertex();
         this->data = data;
         this->name = name;
-        cout << "V(name, data)\n";
     };
 
     TData getData() {

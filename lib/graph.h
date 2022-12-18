@@ -18,7 +18,6 @@ public:
     Graph() {
         directed = false;
         graphForm = new LinearForm<V, E>(false);
-        cout << "Graph()\n";
     };
 
 
@@ -34,7 +33,6 @@ public:
         for (int i = 0; i < vertexNumber; ++i) {
             graphForm->insertVertex();
         }
-        cout << "Graph(vertexNumber, directed, dense)\n";
     }
 
 
@@ -65,7 +63,6 @@ public:
             if (edge != nullptr)
                 i++;
         }
-        cout << "Graph(), dense = " << dense << "\n";
     };
 
     int getVertexNumber() {

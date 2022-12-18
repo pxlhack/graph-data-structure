@@ -14,7 +14,6 @@ public:
         this->directed = directed;
         this->edge_number = 0;
         this->vertex_number = 0;
-        cout << "GraphForm()\n";
     }
 
     int getVertexNumber() {
@@ -39,29 +38,12 @@ public:
 
     virtual std::string toString() = 0;
 
-
-
-    /*V *insertVertex() {
-        V *vertex = new V();
-        vertices.push_back(vertex);
-        return vertex;
-    }*/
-
-
-    /*E *insertEdge(V *V1, V *V2) {
-        E *edge = new E(V1, V2);
-        vertices.push_back(vertex);
-        return vertex;
-    }*/
-
-
-
 protected:
     int edge_number;
     int vertex_number;
     bool directed;
     vector<V *> vertices;
-    vector<vector<E *>> list;
+    vector<vector<E *>> container;
 
 
     int getId(V *v) {
