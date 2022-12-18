@@ -1,39 +1,39 @@
 #ifndef GRAPH_GRAPH_FORM_H
 #define GRAPH_GRAPH_FORM_H
 
-#include "graph_vertex.h"
-#include "graph_edge.h"
+#include "vertex.h"
+#include "edge.h"
 #include <vector>
 
-template<class Vertex, class Edge>
+template<class V, class E>
 class GraphForm {
 public:
-    virtual void setVector(vector<Vertex *> &vertexVector) = 0;
+    virtual void setVector(vector<V *> &vertexVector) = 0;
 
     GraphForm(bool directed) {
         this->directed = directed;
         edge_number = 0;
     }
 
-    int V() {
+    int getVertexNumber() {
         return vertexVector.size();
     }
 
-    int E() {
+    int getEdgeNumber() {
         return edge_number;
     }
 
-    Vertex *insertV() {
-        Vertex* vertex = new Vertex();
+    V *insertVertex() {
+        V *vertex = new V();
         vertexVector.push_back(vertex);
-        
+        return vertex;
     }
 
 protected:
     int edge_number;
     bool directed;
-    vector<Vertex *> vertexVector;
-    vector<Edge *> edgeVector;
+    vector<V *> vertexVector;
+    vector<E *> edgeVector;
 };
 
 

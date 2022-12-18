@@ -3,69 +3,74 @@
 
 
 #include <vector>
-#include "graph_vertex.h"
-#include "graph_edge.h"
+#include "vertex.h"
+#include "edge.h"
 #include "graph_form.h"
-#include "l_graph_form.h"
-#include "m_graph_form.h"
+#include "linear_form.h"
+#include "matrix_form.h"
 
 using namespace std;
 
 
-template<class GraphVertex, class GraphEdge>
+template<class V, class E>
 class Graph {
 public:
     Graph();
 
-    Graph(int v, bool directed = false, bool dense = true) {
-        Graph();
-        if (!dense) {
-            graphForm = new MGraphForm<GraphVertex *>();
-        }
+
+    Graph(int vCount, bool directed = false, bool dense = true) {
         this->directed = directed;
-        for (int i = 0; i < v; ++i) {
-            addVertex();
+
+        if (dense) {
+            graphForm = new LinearForm<V, E>(directed);
+        } else {
+            graphForm = new MatrixForm<V, E>(directed);
         }
-        std::cout << vertexVector.size() << std::endl;
-        graphForm->setVector(vertexVector);
+
+        for (int i = 0; i < vCount; ++i) {
+            graphForm->insertVertex();
+        }
+        cout << "Graph(vCount, directed, dense)\n";
     }
 
-    Graph(int V, int E, bool directed = false, bool dense = true);
 
-    int V();
+    Graph(int vCount, int eCount, bool directed = false, bool dense = true);
 
-    int E();
+    int vCount();
+
+    int eCount();
 
     bool isDirected() const {
         return directed;
     }
 
     bool isDense() {
-        return dynamic_cast<const LGraphForm<GraphVertex> *>(graphForm);
+        return dynamic_cast<const LinearForm<V *, E>>(graphForm);
     }
 
     double K();
 
-    GraphVertex *InsertV();
+    V *InsertV();
 
-    bool DeleteV(GraphVertex*V);
+    bool DeleteV(V *vertex);
 
-    bool deleteE(GraphVertex* vertex1, GraphVertex* vertex2);
+    bool deleteE(V *vertex1, V *vertex2);
 
-    GraphEdge* getEdge(GraphVertex * vertex1, GraphVertex* vertex2);
+    E *getEdge(V *vertex1, V *vertex2);
 
-    GraphEdge* InsertE(GraphVertex *vertex1, GraphVertex* vertex2);
+    E *InsertE(V *vertex1, V *vertex2);
 
 private:
     bool directed;
-    GraphForm<GraphVertex *> *graphForm;
-    vector<GraphVertex *> vertexVector;
+    GraphForm<V, E> *graphForm;
+    vector<V *> vertices;
 };
 
-template<class GraphVertex, class GraphEdge>
-Graph<GraphVertex, GraphEdge>::Graph() {
-    graphForm = new LGraphForm<GraphVertex *>();
+template<class V, class E>
+Graph<V, E>::Graph() {
     directed = false;
+    graphForm = new LinearForm<V, E>(false);
+    cout << "Graph()\n";
 }
 
 

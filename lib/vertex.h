@@ -1,5 +1,5 @@
-#ifndef GRAPH_GRAPH_VERTEX_H
-#define GRAPH_GRAPH_VERTEX_H
+#ifndef GRAPH_VERTEX_H
+#define GRAPH_VERTEX_H
 
 using namespace std;
 
@@ -27,13 +27,14 @@ template<typename TData, typename TName>
 Vertex<TData, TName>::Vertex() {
     data = nullptr;
     name = nullptr;
-    index = 0;
-    std::cout << "vertex created\n";
+    index = -1;
 }
 
 template<typename TData, typename TName>
 Vertex<TData, TName>::Vertex(TName name, TData data) {
-
+    Vertex();
+    this->data = data;
+    this->name = name;
 }
 
 template<typename TData, typename TName>
@@ -43,7 +44,7 @@ TData Vertex<TData, TName>::getData() const {
 
 template<typename TData, typename TName>
 void Vertex<TData, TName>::setData(TData data) {
-
+    this->data = data;
 }
 
 template<typename TData, typename TName>
@@ -53,7 +54,7 @@ TName Vertex<TData, TName>::getName() const {
 
 template<typename TData, typename TName>
 void Vertex<TData, TName>::setName(TName name) {
-    Vertex::name = name;
+    this->name = name;
 }
 
-#endif //GRAPH_GRAPH_VERTEX_H
+#endif //GRAPH_VERTEX_H
