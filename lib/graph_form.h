@@ -4,36 +4,74 @@
 #include "vertex.h"
 #include "edge.h"
 #include <vector>
+#include <sstream>
 
 template<class V, class E>
 class GraphForm {
 public:
-    virtual void setVector(vector<V *> &vertexVector) = 0;
 
     GraphForm(bool directed) {
         this->directed = directed;
-        edge_number = 0;
+        this->edge_number = 0;
+        this->vertex_number = 0;
+        cout << "GraphForm()\n";
     }
 
     int getVertexNumber() {
-        return vertexVector.size();
+        return vertices.size();
     }
 
     int getEdgeNumber() {
         return edge_number;
     }
 
-    V *insertVertex() {
+    virtual V *insertVertex() = 0;
+
+    virtual E *insertEdge(V *V1, V *V2) = 0;
+
+    virtual E *getEdge(V *V1, V *V2) = 0;
+
+    virtual bool deleteEdge(V *V1, V *V2) = 0;
+
+    virtual bool deleteVertex(V *V1, V *V2) = 0;
+
+    virtual void clear() = 0;
+
+    virtual std::string toString() = 0;
+
+
+
+    /*V *insertVertex() {
         V *vertex = new V();
-        vertexVector.push_back(vertex);
+        vertices.push_back(vertex);
         return vertex;
-    }
+    }*/
+
+
+    /*E *insertEdge(V *V1, V *V2) {
+        E *edge = new E(V1, V2);
+        vertices.push_back(vertex);
+        return vertex;
+    }*/
+
+
 
 protected:
     int edge_number;
+    int vertex_number;
     bool directed;
-    vector<V *> vertexVector;
-    vector<E *> edgeVector;
+    vector<V *> vertices;
+    vector<vector<E *>> list;
+
+
+    int getId(V *v) {
+        int id = -1;
+        for (int i = 0; i < vertex_number && id == -1; i++)
+            if (vertices[i] == v)
+                id = i;
+        return id;
+    }
+
 };
 
 

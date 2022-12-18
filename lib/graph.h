@@ -15,7 +15,11 @@ using namespace std;
 template<class V, class E>
 class Graph {
 public:
-    Graph();
+    Graph() {
+        directed = false;
+        graphForm = new LinearForm<V, E>(false);
+        cout << "Graph()\n";
+    };
 
 
     Graph(int vCount, bool directed = false, bool dense = true) {
@@ -34,11 +38,43 @@ public:
     }
 
 
-    Graph(int vCount, int eCount, bool directed = false, bool dense = true);
+    Graph(int vCount, int eCount, bool directed = false, bool dense = true) {
+        this->directed = directed;
+        if (dense) {
+            graphForm = new LinearForm<V, E>(directed);
+        } else {
+            graphForm = new MatrixForm<V, E>(directed);
+        }
+        if (directed) {
+            int max_edges = (vCount * (vCount - 1) + vCount);
+            if (eCount > max_edges) eCount = max_edges;
+        } else {
+            int max_edges = (vCount * (vCount - 1) / 2 + vCount);
+            if (eCount > max_edges) eCount = max_edges;
+        }
+        vector<V *> vertices;
+        for (int i = 0; i < vCount; i++) {
+            V *vertex = graphForm->insertVertex();
+            vertices.push_back(vertex);
+        }
+        srand(time(NULL));
+        for (int i = 0; i < eCount;) {
+            int id1 = rand() % vCount;
+            int id2 = rand() % vCount;
+            E *edge = graphForm->insertEdge(vertices[id1], vertices[id2]);
+            if (edge != nullptr)
+                i++;
+        }
+        cout << "Graph(), dense = " << dense << "\n";
+    };
 
-    int vCount();
+    int vCount() {
+        return 0;
+    };
 
-    int eCount();
+    int eCount() {
+        return 0;
+    };
 
     bool isDirected() const {
         return directed;
@@ -50,28 +86,37 @@ public:
 
     double K();
 
-    V *InsertV();
+    V *insertV() {
+        V *vertex = graphForm->insertVertex();
+        vertices.push_back(vertex);
+        return vertex;
+    };
 
-    bool DeleteV(V *vertex);
+    bool DeleteV(V *vertex) {
+        return false;
+    };
 
-    bool deleteE(V *vertex1, V *vertex2);
+    bool deleteE(V *vertex1, V *vertex2) {
+        return false;
+    };
 
-    E *getEdge(V *vertex1, V *vertex2);
+    E *getEdge(V *vertex1, V *vertex2) {
+        return nullptr;
+    };
 
-    E *InsertE(V *vertex1, V *vertex2);
+    E *insertEdge(V *vertex1, V *vertex2) {
+        return graphForm->insertEdge(vertex1, vertex2);
+    };
+
+    std::string toString() {
+        return graphForm->toString();
+    }
 
 private:
     bool directed;
     GraphForm<V, E> *graphForm;
     vector<V *> vertices;
 };
-
-template<class V, class E>
-Graph<V, E>::Graph() {
-    directed = false;
-    graphForm = new LinearForm<V, E>(false);
-    cout << "Graph()\n";
-}
 
 
 #endif //GRAPH_GRAPH_H

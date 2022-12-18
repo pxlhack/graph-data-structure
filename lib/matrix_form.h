@@ -10,7 +10,33 @@ public:
         cout << "MatrixFrom()\n";
     }
 
-    void setVector(vector<V *> &vertexVector) override {}
+    E *insertEdge(V *V1, V *V2) override {
+        return nullptr;
+    }
+
+    V *insertVertex() override {
+        return nullptr;
+    };
+
+    E *getEdge(V *V1, V *V2) override {
+        return nullptr;
+    }
+
+    bool deleteEdge(V *V1, V *V2) override {
+        return false;
+    }
+
+    bool deleteVertex(V *V1, V *V2) override {
+        return false;
+    }
+
+    void clear() override {
+
+    }
+
+    string toString() override {
+        return " ";
+    }
 };
 
 

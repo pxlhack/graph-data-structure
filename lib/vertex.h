@@ -5,56 +5,42 @@ using namespace std;
 
 template<typename TData, typename TName>
 class Vertex {
-private:
-    TData *data;
-    TName *name;
-    int index;
 public:
-    Vertex();
+    Vertex() {
+        data = TData(0);
+        name = TName(0);
+        index = -1;
+        cout << "V()\n";
+    };
 
-    Vertex(TName name, TData data);
+    Vertex(TName name, TData data) {
+        Vertex();
+        *(this->data) = data;
+        *(this->name) = name;
+        cout << "V(name, data)\n";
+    };
 
-    TData getData() const;
+    TData getData() {
+        return this->data;
+    };
 
-    void setData(TData data);
+    void setData(TData data) {
+        this->data = data;
+    };
 
-    TName getName() const;
+    TName getName() {
+        return this->name;
+    };
 
-    void setName(TName name);
+    void setName(TName name) {
+        this->name = name;
+    };
+
+private:
+    TData data;
+    TName name;
+    int index;
 };
 
-template<typename TData, typename TName>
-Vertex<TData, TName>::Vertex() {
-    data = nullptr;
-    name = nullptr;
-    index = -1;
-}
-
-template<typename TData, typename TName>
-Vertex<TData, TName>::Vertex(TName name, TData data) {
-    Vertex();
-    this->data = data;
-    this->name = name;
-}
-
-template<typename TData, typename TName>
-TData Vertex<TData, TName>::getData() const {
-    return data;
-}
-
-template<typename TData, typename TName>
-void Vertex<TData, TName>::setData(TData data) {
-    this->data = data;
-}
-
-template<typename TData, typename TName>
-TName Vertex<TData, TName>::getName() const {
-    return name;
-}
-
-template<typename TData, typename TName>
-void Vertex<TData, TName>::setName(TName name) {
-    this->name = name;
-}
 
 #endif //GRAPH_VERTEX_H
