@@ -26,5 +26,7 @@ int main() {
     edge->setData(30);
 
     cout << graph1.toString();
+    bool flag = graph1.isDense();
+    cout << flag;
     return 0;
 }

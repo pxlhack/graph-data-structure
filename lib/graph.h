@@ -6,7 +6,7 @@
 #include "vertex.h"
 #include "edge.h"
 #include "graph_form.h"
-#include "linear_form.h"
+#include "list_form.h"
 #include "matrix_form.h"
 
 using namespace std;
@@ -17,7 +17,7 @@ class Graph {
 public:
     Graph() {
         directed = false;
-        graphForm = new LinearForm<V, E>(false);
+        graphForm = new ListForm<V, E>(false);
     };
 
 
@@ -25,7 +25,7 @@ public:
         this->directed = directed;
 
         if (dense) {
-            graphForm = new LinearForm<V, E>(directed);
+            graphForm = new ListForm<V, E>(directed);
         } else {
             graphForm = new MatrixForm<V, E>(directed);
         }
@@ -39,7 +39,7 @@ public:
     Graph(int vertexNumber, int edgeNumber, bool directed = false, bool dense = true) {
         this->directed = directed;
         if (dense) {
-            graphForm = new LinearForm<V, E>(directed);
+            graphForm = new ListForm<V, E>(directed);
         } else {
             graphForm = new MatrixForm<V, E>(directed);
         }
@@ -78,7 +78,7 @@ public:
     }
 
     bool isDense() {
-        return dynamic_cast<const LinearForm<V *, E>>(graphForm);
+        return dynamic_cast<ListForm<V, E> *>(graphForm);
     }
 
     double K() {
@@ -108,6 +108,18 @@ public:
     E *insertEdge(V *vertex1, V *vertex2) {
         return graphForm->insertEdge(vertex1, vertex2);
     };
+
+    void toList() {
+        if (!isDense()) {
+
+        }
+    }
+
+    void toMatrix() {
+        if (isDense()) {
+
+        }
+    }
 
     std::string toString() {
         return graphForm->toString();

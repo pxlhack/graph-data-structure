@@ -6,4 +6,4 @@ set(CMAKE_CXX_STANDARD 17)
 add_executable(main
         main.cpp
         lib/vertex.h
-        lib/edge.h lib/graph.h lib/graph_form.h lib/linear_form.h lib/matrix_form.h)
+        lib/edge.h lib/graph.h lib/graph_form.h lib/list_form.h lib/matrix_form.h)

@@ -48,9 +48,11 @@ protected:
 
     int getId(V *v) {
         int id = -1;
-        for (int i = 0; i < vertex_number && id == -1; i++)
-            if (vertices[i] == v)
+        for (int i = 0; i < vertex_number && id == -1; i++) {
+            if (vertices[i] == v) {
                 id = i;
+            }
+        }
         return id;
     }
 
