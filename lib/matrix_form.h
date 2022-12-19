@@ -107,12 +107,7 @@ public:
         return sstr->str();
     }
 
-    bool isEdge(int id1, int id2, vector<V *> vertices) override {
-        //для неорграфа
-        E *e1 = this->container[id1][id2];
-        E *e2 = this->container[id2][id1];
-        return e1 && e2;
-    };
+
 };
 
 

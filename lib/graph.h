@@ -93,25 +93,30 @@ public:
         return vertex;
     };
 
-    bool DeleteV(V *pVertex) {
+    bool deleteV(V *pVertex) {
         bool isDeleted = graphForm->deleteVertex(pVertex);
         if (isDeleted) {
-            vertices.erase(pVertex->getIndex());
+            vertices.erase(vertices.begin() + pVertex->getIndex());
+            for (int i = 0; i < vertices.size(); i++) {
+                vertices[i]->setIndex(i);
+            }
         }
         return isDeleted;
     };
 
     bool deleteE(V *vertex1, V *vertex2) {
-        return false;
+        return graphForm->deleteEdge(vertex1, vertex2);
     };
 
     E *getEdge(V *vertex1, V *vertex2) {
-        return nullptr;
+        return graphForm->getEdge(vertex1, vertex2);
     };
 
     E *insertEdge(V *vertex1, V *vertex2) {
         return graphForm->insertEdge(vertex1, vertex2);
     };
+
+
 
     /*void toList() {
         if (!isDense()) {
@@ -171,10 +176,6 @@ public:
 
     std::string toString() {
         return graphForm->toString(vertices);
-    }
-
-    bool isEdge(int id1, int id2) {
-        return this->graphForm->isEdge(id1, id2);
     }
 
 private:

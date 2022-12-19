@@ -121,24 +121,6 @@ public:
         return sstr->str();
     }
 
-    bool isEdge(int id1, int id2, vector<V *> vertices) override {
-        vector<E *> edgeVector = this->container[id1];
-        V *v1 = vertices[id1];
-        V *v2 = vertices[id2];
-
-        for (E *e: edgeVector) {
-            bool flag = isDesired(v1, v2, e);
-            if (flag) return true;
-        }
-        return false;
-    };
-
-
-private:
-    bool isDesired(V *V1, V *V2, E *e) {
-        return (e->getV1() == V1 && e->getV2() == V2) || (e->getV1() == V2 && e->getV2() == V1);
-    }
-
 };
 
 
