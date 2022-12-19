@@ -280,6 +280,11 @@ public:
         return graphForm->getEdgesVector();
     }
 
+    vector<E *> getEdgesVector(V* vertex) {
+        return graphForm->getEdgesVector(vertex);
+    }
+
+
 private:
     std::string toString() {
         return graphForm->toString(vertices);

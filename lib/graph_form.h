@@ -67,6 +67,26 @@ public:
         return edges;
     }
 
+    vector<E *> getEdgesVector(V *vertex) {
+        vector<E *> allEdges = getEdgesVector();
+        vector<E *> edges = vector<E *>();
+        if (directed) {
+            for (E *e: allEdges) {
+                if (vertex == e->getV1()) {
+                    edges.insert(edges.begin(), e);
+                }
+            }
+        } else {
+            for (E *e: allEdges) {
+                if (vertex == e->getV1() || vertex == e->getV2()) {
+                    edges.insert(edges.begin(), e);
+                }
+            }
+        }
+
+        return edges;
+    }
+
 
 protected:
     int vertexNumber;
