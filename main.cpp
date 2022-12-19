@@ -12,7 +12,7 @@
 // todo task3
 int main() {
     vector<Vertex<int, int> *> v;
-    Graph<Vertex<int, int>, Edge<Vertex<int, int>, int, int>> graph1(6, 8, false, true);
+    Graph<Vertex<int, int>, Edge<Vertex<int, int>, int, int>> graph1(6, 12, true, true);
     cout << graph1 << endl;
 
     vector<Edge<Vertex<int, int>, int, int> *> eV = graph1.getEdgesVector();
@@ -36,6 +36,14 @@ int main() {
         Edge<Vertex<int, int>, int, int> edge = *it2;
         cout << edge << endl;
         ++it2;
+    }
+
+    cout << "Outdoing edges:\n";
+    auto it3 = graph1.oeBegin(graph1.get(2));
+    while (it3 != graph1.oeEnd(graph1.get(2))) {
+        Edge<Vertex<int, int>, int, int> edge = *it3;
+        cout << edge << endl;
+        ++it3;
     }
 
 

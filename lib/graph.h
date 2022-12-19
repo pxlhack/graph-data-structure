@@ -280,8 +280,20 @@ public:
         return graphForm->getEdgesVector();
     }
 
-    vector<E *> getEdgesVector(V* vertex) {
+    vector<E *> getEdgesVector(V *vertex) {
         return graphForm->getEdgesVector(vertex);
+    }
+
+    EdgeIterator oeBegin(V *v) {
+        return Graph<V, E>::EdgeIterator(getEdgesVector(v), 0);
+    }
+
+    EdgeIterator oeEnd(V *v) {
+        return Graph<V, E>::EdgeIterator(getEdgesVector(v), -1);
+    }
+
+    V *get(int index) {
+        return vertices[index];
     }
 
 
