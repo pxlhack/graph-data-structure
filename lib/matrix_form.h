@@ -7,11 +7,6 @@ template<class V, class E>
 class MatrixForm : public GraphForm<V, E> {
 
 public:
-
-    E *createEdge(int index1, int index2) override {
-        return nullptr;
-    }
-
     MatrixForm(bool directed) : GraphForm<V, E>(directed) {}
 
     E *insertEdge(V *vertex1, V *vertex2) override {
@@ -85,7 +80,7 @@ public:
     }
 
     string toString(vector<V *> vertices) override {
-        stringstream *sstr = new stringstream;
+        auto *sstr = new stringstream;
 
         for (int i = 0; i < this->vertexNumber; i++) {
             *sstr << " " << i << "[" << vertices[i]->getName() << "," << vertices[i]->getData() << "]";
@@ -106,6 +101,7 @@ public:
         }
         return sstr->str();
     }
+
 
 
 };

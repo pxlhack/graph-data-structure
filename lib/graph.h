@@ -55,7 +55,7 @@ public:
             V *vertex = graphForm->insertVertex();
             vertices.push_back(vertex);
         }
-        srand(time(NULL));
+        srand(time(nullptr));
         for (int i = 0; i < edgeNumber;) {
             int id1 = rand() % vertexNumber;
             int id2 = rand() % vertexNumber;
@@ -120,7 +120,6 @@ public:
 
 
     void toList() {
-        GraphForm<V, E> *form = graphForm;
         if (!isDense()) {
             GraphForm<V, E> *newForm = new ListForm<V, E>(this->directed);
             vector<V *> vector1;
@@ -239,6 +238,11 @@ public:
 
     VertexIterator vEnd() {
         return Graph<V, E>::VertexIterator(this, -1);
+    }
+
+
+    vector<E *> getEdgesVector() {
+        return graphForm->getEdgesVector();
     }
 
 private:

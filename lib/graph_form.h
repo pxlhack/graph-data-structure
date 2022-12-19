@@ -5,6 +5,7 @@
 #include "edge.h"
 #include <vector>
 #include <sstream>
+#include <unordered_set>
 
 template<class V, class E>
 class GraphForm {
@@ -30,7 +31,6 @@ public:
 
     virtual E *getEdge(V *V1, V *V2) = 0;
 
-    virtual E *createEdge(int index1, int index2) = 0;
 
     virtual bool deleteEdge(V *V1, V *V2) = 0;
 
@@ -39,6 +39,33 @@ public:
     virtual void clear() = 0;
 
     virtual std::string toString(vector<V *> vertices) = 0;
+
+    vector<E *> getEdgesVector() {
+        vector<E *> edges = vector<E *>();
+        if (this->directed) {
+            for (vector<E *> ev: this->container) {
+                for (E *e: ev) {
+                    if (e) {
+                        edges.insert(edges.begin(), e);
+                    }
+                }
+            }
+        } else {
+            unordered_set<E *> set;
+            for (vector<E *> ev: this->container) {
+                for (E *e: ev) {
+                    if (e) {
+                        set.insert(e);
+                    }
+                }
+            }
+            for (E *e: set) {
+                edges.insert(edges.begin(), e);
+            }
+        }
+
+        return edges;
+    }
 
 
 protected:

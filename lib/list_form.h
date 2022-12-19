@@ -7,9 +7,6 @@ template<class V, class E>
 class ListForm : public GraphForm<V, E> {
 public:
 
-    E *createEdge(int index1, int index2) override {
-        return nullptr;
-    }
 
     ListForm(bool directed) : GraphForm<V, E>(directed) {
     }
@@ -38,7 +35,6 @@ public:
             this->container[id2].push_back(edge);
         }
         return edge;
-
 
 
     }
@@ -115,7 +111,7 @@ public:
     }
 
     string toString(vector<V *> vertices) override {
-        stringstream *sstr = new stringstream;
+        auto *sstr = new stringstream;
         for (int i = 0; i < this->vertexNumber; i++) {
             *sstr << i << "[" << vertices[i]->getName() << "," << vertices[i]->getName() << "]: ";
             for (int j = 0; j < this->container[i].size(); j++) {
@@ -129,6 +125,7 @@ public:
         }
         return sstr->str();
     }
+
 
 };
 
