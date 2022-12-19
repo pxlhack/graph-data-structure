@@ -60,9 +60,11 @@ public:
             int id1 = rand() % vertexNumber;
             int id2 = rand() % vertexNumber;
             E *edge = graphForm->insertEdge(vertices[id1], vertices[id2]);
-            if (edge != nullptr)
+            if (edge != nullptr) {
                 i++;
+            }
         }
+        this->vertices = vertices;
     };
 
     int getVertexNumber() {
@@ -151,7 +153,6 @@ public:
 
 
     void toMatrix() {
-        GraphForm<V, E> *form = graphForm;
         if (isDense()) {
             GraphForm<V, E> *newForm = new MatrixForm<V, E>(this->directed);
             vector<V *> vector1;
@@ -161,7 +162,6 @@ public:
                 vertex->setData(vertices[i]->getData());
                 vector1.push_back(vertex);
             }
-
 
 
             for (int i = 0; i < vector1.size(); ++i) {
@@ -189,6 +189,57 @@ public:
         out << g.toString();
         return out;
     };
+
+    class VertexIterator {
+    public:
+        VertexIterator() {
+            g = nullptr;
+            i = -1;
+        }
+
+        VertexIterator(Graph *g, int i) {
+            this->g = g;
+            if (g->getVertexNumber() == 0) {
+                this->i = -1;
+            } else {
+                this->i = i;
+            }
+        }
+
+        VertexIterator &operator++() {
+            i++;
+            if (i >= g->getVertexNumber()) {
+                i = -1;
+            }
+            return *this;
+        }
+
+
+        bool operator==(VertexIterator it) {
+            return this->i == it.i;
+        }
+
+        bool operator!=(VertexIterator it) {
+            return this->i != it.i;
+        }
+
+
+        V operator*() {
+            return *g->vertices[i];
+        }
+
+    private:
+        Graph *g;
+        int i;
+    };
+
+    VertexIterator vBegin() {
+        return Graph<V, E>::VertexIterator(this, 0);
+    }
+
+    VertexIterator vEnd() {
+        return Graph<V, E>::VertexIterator(this, -1);
+    }
 
 private:
     std::string toString() {
