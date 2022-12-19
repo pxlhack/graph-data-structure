@@ -213,15 +213,9 @@ public:
             return *this;
         }
 
-
-        bool operator==(VertexIterator it) {
-            return this->i == it.i;
-        }
-
         bool operator!=(VertexIterator it) {
             return this->i != it.i;
         }
-
 
         V operator*() {
             return *g->vertices[i];
@@ -238,6 +232,47 @@ public:
 
     VertexIterator vEnd() {
         return Graph<V, E>::VertexIterator(this, -1);
+    }
+
+    class EdgeIterator {
+    public:
+        EdgeIterator() {
+            i = -1;
+        }
+
+        EdgeIterator(vector<E *> edges, int i) {
+            this->edges = edges;
+            this->i;
+        }
+
+        EdgeIterator &operator++() {
+            i++;
+            if (i >= edges.size()) {
+                i = -1;
+            }
+            return *this;
+        }
+
+        bool operator!=(EdgeIterator it) {
+            return this->i != it.i;
+        }
+
+        E operator*() {
+            return *edges[i];
+        }
+
+
+    private:
+        vector<E *> edges;
+        int i;
+    };
+
+    EdgeIterator eBegin() {
+        return Graph<V, E>::EdgeIterator(getEdgesVector(), 0);
+    }
+
+    EdgeIterator eEnd() {
+        return Graph<V, E>::EdgeIterator(getEdgesVector, -1);
     }
 
 
