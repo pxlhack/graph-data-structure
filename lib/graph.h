@@ -242,7 +242,7 @@ public:
 
         EdgeIterator(vector<E *> edges, int i) {
             this->edges = edges;
-            this->i;
+            this->i = i;
         }
 
         EdgeIterator &operator++() {
@@ -272,7 +272,7 @@ public:
     }
 
     EdgeIterator eEnd() {
-        return Graph<V, E>::EdgeIterator(getEdgesVector, -1);
+        return Graph<V, E>::EdgeIterator(getEdgesVector(), -1);
     }
 
 

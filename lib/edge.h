@@ -45,7 +45,20 @@ public:
         this->data = data;
     };
 
+    friend std::ostream &operator<<(std::ostream &out, Edge &edge) {
+        out << edge.toString();
+        return out;
+    };
+
 private:
+    string toString() {
+        int index1 = v1->getIndex();
+        int index2 = v2->getIndex();
+        string s = "{ [" + to_string(index1) + ", " + to_string(index2) + "] Weight: " + to_string(weight) +
+                   " Data: " + to_string(data) + " }";
+        return s;
+    }
+
     V *v1, *v2;
     TWeight weight;
     TData data;

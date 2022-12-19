@@ -42,7 +42,18 @@ public:
         this->index = index;
     }
 
+    friend std::ostream &operator<<(std::ostream &out, Vertex &vertex) {
+        out << vertex.toString();
+        return out;
+    };
+
 private:
+
+    string toString() {
+        string s = "{ i: " + to_string(index) + " Data: " + to_string(data) + " Name: " + to_string(name) + " }";
+        return s;
+    }
+
     TData data;
     TName name;
     int index;

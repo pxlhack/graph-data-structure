@@ -19,28 +19,25 @@ int main() {
     for (Edge<Vertex<int, int>, int, int> *e: eV) {
         cout << e->getV1()->getIndex() << " " << e->getV2()->getIndex() << endl;
     }
-    /*auto it = graph1.vBegin();
-    int i = 0;
+    cout << "\n";
+
+    cout << "Vertices:\n";
+    auto it = graph1.vBegin();
     while (it != graph1.vEnd()) {
-        cout << (*it).getName() << endl;
-        cout << (*it).getData() << endl;
-        i++;
+        Vertex<int, int> vertex = *it;
+        cout << vertex << endl;
+
         ++it;
     }
-    cout << i << endl;
 
-    auto *t = new unordered_set<Vertex<int, int> *>();
-    Vertex<int, int> *vertex = new Vertex<int, int>(10, 10);
-    Vertex<int, int> *vertex2 = new Vertex<int, int>(20, 20);
+    cout << "Edges:\n";
+    auto it2 = graph1.eBegin();
+    while (it2 != graph1.eEnd()) {
+        Edge<Vertex<int, int>, int, int> edge = *it2;
+        cout << edge << endl;
+        ++it2;
+    }
 
-    t->insert(vertex);
-    t->insert(vertex2);
-    t->insert(vertex2);
-    t->insert(vertex2);
-    t->insert(vertex2);
-    for (Vertex<int, int> *v1: *t) {
-        cout << v1->getData() << endl;
-    }*/
 
     return 0;
 }
