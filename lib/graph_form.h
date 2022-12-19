@@ -38,9 +38,9 @@ public:
 
     virtual void clear() = 0;
 
-    virtual std::string toString() = 0;
+    virtual std::string toString(vector<V *> vertices) = 0;
 
-    virtual bool isEdge(int id1, int id2) = 0;
+    virtual bool isEdge(int id1, int id2, vector<V *> vertices) = 0;
 
 protected:
     int vertexNumber;

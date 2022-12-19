@@ -113,7 +113,7 @@ public:
         return graphForm->insertEdge(vertex1, vertex2);
     };
 
-    void toList() {
+    /*void toList() {
         if (!isDense()) {
             GraphForm<V, E> *newForm = new ListForm<V, E>(this->directed);
             vector<V *> vector1;
@@ -127,7 +127,7 @@ public:
 
             for (int i = 0; i < vertices.size(); ++i) {
                 for (int j = 0; j < vertices.size(); ++j) {
-                    if (graphForm->isEdge(i, j)) {
+                    if (graphForm->isEdge(i, j,vertices)) {
                         E *newEdge = newForm->insertEdge(vector1[i], vector1[j]);
                         if (newEdge) {
                             E *oldEdge = graphForm->getEdge(vertices[i], vertices[j]);
@@ -140,10 +140,10 @@ public:
             graphForm = newForm;
             vertices = vector1;
         }
-    }
+    }*/
 
 
-    void toMatrix() {
+    /*void toMatrix() {
         if (isDense()) {
             GraphForm<V, E> *newForm = new MatrixForm<V, E>(this->directed);
             vector<V *> vector1;
@@ -156,7 +156,7 @@ public:
 
             for (int i = 0; i < vertices.size(); ++i) {
                 for (int j = 0; j < vertices.size(); ++j) {
-                    if (graphForm->isEdge(i, j)) {
+                    if (graphForm->isEdge(i, j,vertices)) {
                         E *e = newForm->insertEdge(vector1[i], vector1[j]);
                         e->setWeight(getEdge(vertices[i], vertices[j])->getWeight());
                         e->setData(getEdge(vertices[i], vertices[j])->getData());
@@ -167,10 +167,10 @@ public:
             graphForm = newForm;
             vertices = vector1;
         }
-    }
+    }*/
 
     std::string toString() {
-        return graphForm->toString();
+        return graphForm->toString(vertices);
     }
 
     bool isEdge(int id1, int id2) {

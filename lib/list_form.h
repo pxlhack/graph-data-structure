@@ -18,18 +18,19 @@ public:
         int id1 = pVertex1->getIndex(), id2 = pVertex2->getIndex();
 
         E *edge = new E(pVertex1, pVertex2);
-        for (int i = 0; i < this->container[id1].size(); i++) {
-            if (!this->directed && isDesired(pVertex1, pVertex2, this->container[id1][i]))
-                return nullptr;
-            if (this->directed &&
-                ((this->container[id1][i])->getV1() == pVertex1 && this->container[id1][i]->getV2() == pVertex2))
-                return nullptr;
+        E *oldEdge = getEdge(pVertex1, pVertex2);
+
+        if (oldEdge) {
+            return nullptr;
+        } else {
+            this->container[id1].push_back(edge);
+            this->edgeNumber++;
+            if (!this->directed && id1 != id2) {
+                this->container[id2].push_back(edge);
+            }
+            return edge;
         }
-        this->container[id1].push_back(edge);
-        this->edgeNumber++;
-        if (!this->directed && id1 != id2)
-            this->container[id2].push_back(edge);
-        return edge;
+
     }
 
 
@@ -41,70 +42,77 @@ public:
         return vertex;
     };
 
-    E *getEdge(V *V1, V *V2) override {
-        int id1 = GraphForm<V, E>::getId(V1);
-        for (int i = 0; i < this->container[id1].size(); i++)
-            if (this->container[id1][i]->getV2() == V2 && this->container[id1][i]->getV1() == V1)
-                return this->container[id1][i];
+    E *getEdge(V *pVertex1, V *pVertex2) override {
+        int id1 = pVertex1->getIndex();
+        vector<E *> edgeVector = this->container[id1];
+        for (int i = 0; i < edgeVector.size(); i++) {
+            if (edgeVector[i]->getV1() == pVertex1 && edgeVector[i]->getV2() == pVertex2) {
+                return edgeVector[i];
+            }
+        }
         return nullptr;
     }
 
-    bool deleteEdge(V *V1, V *V2) override {
-        int id1 = GraphForm<V, E>::getId(V1), id2 = GraphForm<V, E>::getId(V2);
+    bool deleteEdge(V *pVertex1, V *pVertex2) override {
+        int id1 = pVertex1->getIndex(), id2 = pVertex2->getIndex();
         if (id1 != -1 && id2 != -1) {
             if (!this->directed) {
-                for (int i = 0; i < this->container[id1].size(); i++)
-                    if (isDesired(V1, V2, this->container[id1][i])) {
+
+                for (int i = 0; i < this->container[id1].size(); i++) {
+                    E *edge = getEdge(pVertex1, pVertex2);
+                    if (edge) {
                         this->container[id1].erase(this->container[id1].begin() + i);
                         break;
                     }
-                for (int i = 0; i < this->container[id2].size(); i++)
-                    if (isDesired(V1, V2, this->container[id2][i])) {
+                }
+
+                for (int i = 0; i < this->container[id2].size(); i++) {
+                    E *edge = getEdge(pVertex2, pVertex1);
+                    if (edge) {
                         free(this->container[id2][i]);
                         this->container[id2].erase(this->container[id2].begin() + i);
                         this->edgeNumber--;
                         return true;
                     }
+                }
             } else {
-                for (int i = 0; i < this->container[id1].size(); i++)
-                    if (this->container[id1][i]->getV1() == V1 && this->container[id1][i]->getV2() == V2) {
+                for (int i = 0; i < this->container[id1].size(); i++) {
+                    if (this->container[id1][i]->getV1() == pVertex1 && this->container[id1][i]->getV2() == pVertex2) {
                         free(this->container[id1][i]);
                         this->container[id1].erase(this->container[id1].begin() + i);
                         this->edgeNumber--;
                         return true;
                     }
+                }
             }
         }
         return false;
     }
 
     bool deleteVertex(V *v) override {
-        int id = GraphForm<V, E>::getId(v);
-
-        for (int i = 0; i < this->vertex_number; i++) {
-            deleteEdge(v, this->vertices[i]);
-            if (this->directed)
-                deleteEdge(this->vertices[i], v);
+        int id = v->getIndex();
+        for (int i = 0; i < this->container[id].size(); i++) {
+            E *edge = this->container[id][i];
+            V *V2 = (edge->getV1() == v) ? edge->getV2() : edge->getV1();
+            deleteEdge(v, V2);
         }
         this->container.erase(this->container.begin() + id);
-        free(this->vertices[id]);
-        this->vertices.erase(this->vertices.begin() + id);
-        this->vertex_number--;
-        return false;
+        this->vertexNumber--;
+        return true;
     }
 
     void clear() override {
 
     }
 
-    string toString() override {
+    string toString(vector<V *> vertices) override {
         stringstream *sstr = new stringstream;
-        for (int i = 0; i < this->vertex_number; i++) {
-            *sstr << i << "[" << this->vertices[i]->getName() << "," << this->vertices[i]->getName() << "]: ";
+        for (int i = 0; i < this->vertexNumber; i++) {
+            *sstr << i << "[" << vertices[i]->getName() << "," << vertices[i]->getName() << "]: ";
             for (int j = 0; j < this->container[i].size(); j++) {
                 E *edge = this->container[i][j];
-                *sstr << "[" << GraphForm<V, E>::getId(edge->getV1()) << ","
-                      << GraphForm<V, E>::getId(edge->getV2()) << ",w(" << edge->getWeight() << "),d("
+                *sstr << "[" << edge->getV1()->getIndex() << ","
+                      << edge->getV2()->getIndex() << ",w(" << edge->getWeight() << "),d("
                       << edge->getData()
                       << ")] ";
             }
@@ -113,10 +121,10 @@ public:
         return sstr->str();
     }
 
-    bool isEdge(int id1, int id2) override {
+    bool isEdge(int id1, int id2, vector<V *> vertices) override {
         vector<E *> edgeVector = this->container[id1];
-        V *v1 = this->vertices[id1];
-        V *v2 = this->vertices[id2];
+        V *v1 = vertices[id1];
+        V *v2 = vertices[id2];
 
         for (E *e: edgeVector) {
             bool flag = isDesired(v1, v2, e);

@@ -27,10 +27,7 @@ int main() {
     edge->setData(30);
 
     cout << graph1.toString() << endl;
-    graph1.toList();
-    cout << graph1.toString() << endl;
-    graph1.toMatrix();
-    cout << graph1.toString() << endl;
+
 
     return 0;
 }

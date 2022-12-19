@@ -84,11 +84,11 @@ public:
 
     }
 
-    string toString() override {
+    string toString(vector<V *> vertices) override {
         stringstream *sstr = new stringstream;
 
         for (int i = 0; i < this->vertexNumber; i++) {
-            *sstr << " " << i << "[" << this->vertices[i]->getName() << "," << this->vertices[i]->getData() << "]";
+            *sstr << " " << i << "[" << vertices[i]->getName() << "," << vertices[i]->getData() << "]";
         }
         *sstr << "\n";
 
@@ -107,7 +107,7 @@ public:
         return sstr->str();
     }
 
-    bool isEdge(int id1, int id2) override {
+    bool isEdge(int id1, int id2, vector<V *> vertices) override {
         //для неорграфа
         E *e1 = this->container[id1][id2];
         E *e2 = this->container[id2][id1];
