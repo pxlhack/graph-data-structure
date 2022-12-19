@@ -27,11 +27,10 @@ int main() {
     edge->setData(30);
 
     cout << graph1.toString() << endl;
-    cout << graph1.isEdge(0, 1);
-    cout << graph1.isEdge(2, 2);
-    cout << graph1.isEdge(1, 3);
-    cout << graph1.isEdge(3, 3);
-
+    graph1.toList();
+    cout << graph1.toString() << endl;
+    graph1.toMatrix();
+    cout << graph1.toString() << endl;
 
     return 0;
 }

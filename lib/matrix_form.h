@@ -5,16 +5,20 @@
 
 template<class V, class E>
 class MatrixForm : public GraphForm<V, E> {
+
 public:
+
+    E *createEdge(int index1, int index2) override {
+        return nullptr;
+    }
+
     MatrixForm(bool directed) : GraphForm<V, E>(directed) {}
 
-    E *insertEdge(V *V1, V *V2) override {
-        int id1 = GraphForm<V, E>::getId(V1), id2 = GraphForm<V, E>::getId(V2);
-        V1->setIndex(id1);
-        V2->setIndex(id2);
-        E *edge = new E(V1, V2);
+    E *insertEdge(V *vertex1, V *vertex2) override {
+        int id1 = vertex1->getIndex(), id2 = vertex2->getIndex();
+        E *edge = new E(vertex1, vertex2);
         if (id1 != -1 && id2 != -1 && this->container[id1][id2] == nullptr) {
-            this->edge_number++;
+            this->edgeNumber++;
             if (!this->directed) {
                 this->container[id2][id1] = edge;
             }
@@ -27,69 +31,50 @@ public:
 
     V *insertVertex() override {
         V *vertex = new V();
-        this->vertices.push_back(vertex);
-        this->vertex_number++;
+        vertex->setIndex(this->vertexNumber++);
         vector<E *> vector_;
         this->container.push_back(vector_);
-        for (int i = 0; i < this->vertex_number; i++) {
+        for (int i = 0; i < this->vertexNumber; i++) {
             this->container[i].push_back(nullptr);  //push_backing in new column
-            if (i < this->vertex_number - 1)
-                this->container[this->vertex_number - 1].push_back(nullptr); //push_backing in new row
+            if (i < this->vertexNumber - 1)
+                this->container[this->vertexNumber - 1].push_back(nullptr); //push_backing in new row
         }
         return vertex;
     };
 
-    E *getEdge(V *V1, V *V2) override {
-        int id1 = GraphForm<V, E>::getId(V1), id2 = GraphForm<V, E>::getId(V2);
+    E *getEdge(V *vertex1, V *vertex2) override {
+        int id1 = vertex1->getIndex(), id2 = vertex2->getIndex();
         return this->container[id1][id2];
     }
 
-    bool insertEdge(int v1, int v2, E *t) {
-        int size = this->container.size(); //Число вершин
-        //Неверный номер вершины
-        if (v1 < 0 || v2 < 0 || v1 >= size || v2 >= size) return false;
-        //Петля или ребро уже есть
-        if (v1 == v2 || this->container[v1][v2] != nullptr) return false;
-        //Вставляем ребро
-        this->container[v1][v2] = t;
-        return true;
-    }
-
-    E *getEdge(int v1, int v2) {
-        int size = this->container.size(); //Число вершин
-        //Неверный номер вершины
-        if (v1 < 0 || v2 < 0 || v1 >= size || v2 >= size)
-            throw 1;
-        if (v1 == v2 || this->container[v1][v2] == nullptr)//Петля
-            throw 1;
-        return this->container[v1][v2];
-    }
-
-    bool deleteEdge(V *V1, V *V2) override {
-        int id1 = GraphForm<V, E>::getId(V1), id2 = GraphForm<V, E>::getId(V2);
+    bool deleteEdge(V *pVertex1, V *pVertex2) override {
+        int id1 = pVertex1->getIndex(), id2 = pVertex2->getIndex();
         if (id1 != -1 && id2 != -1 && this->container[id1][id2] != nullptr) {
-            this->edge_number--;
+            this->edgeNumber--;
             free(this->container[id1][id2]);
             this->container[id1][id2] = nullptr;
-            if (!this->directed)
+            if (!this->directed) {
+                free(this->container[id2][id1]);
                 this->container[id2][id1] = nullptr;
+            }
             return true;
         }
         return false;
     }
 
-    bool deleteVertex(V *v) override {
-        int id = GraphForm<V, E>::getId(v);
+    bool deleteVertex(V *pVertex) override {
+        int id = pVertex->getIndex();
         if (id != -1) {
-            for (int i = 0; i < this->vertex_number; i++) {
-                deleteEdge(this->vertices[id], this->vertices[i]);
-                deleteEdge(this->vertices[i], this->vertices[id]);
+            for (int i = 0; i < this->vertexNumber; i++) {
+                E *edge = this->container[id][i];
+                if (edge) {
+                    V *pVertex2 = (edge->getV1() == pVertex) ? edge->getV2() : edge->getV1();
+                    deleteEdge(pVertex, pVertex2);
+                }
                 this->container[i].erase(this->container[i].begin() + id);
             }
             this->container.erase(this->container.begin() + id);
-            free(this->vertices[id]);
-            this->vertices.erase(this->vertices.begin() + id);
-            this->vertex_number--;
+            this->vertexNumber--;
             return true;
         }
         return false;
@@ -102,14 +87,14 @@ public:
     string toString() override {
         stringstream *sstr = new stringstream;
 
-        for (int i = 0; i < this->vertex_number; i++) {
+        for (int i = 0; i < this->vertexNumber; i++) {
             *sstr << " " << i << "[" << this->vertices[i]->getName() << "," << this->vertices[i]->getData() << "]";
         }
         *sstr << "\n";
 
-        for (int i = 0; i < this->vertex_number; i++) {
+        for (int i = 0; i < this->vertexNumber; i++) {
             *sstr << i << " ";
-            for (int j = 0; j < this->vertex_number; j++) {
+            for (int j = 0; j < this->vertexNumber; j++) {
                 E *edge = this->container[i][j];
                 if (edge) {
                     *sstr << "[" << edge->getWeight() << ", " << edge->getData() << "] ";
@@ -120,19 +105,6 @@ public:
             *sstr << "\n";
         }
         return sstr->str();
-    }
-
-
-    bool hasEdge(int v1, int v2) {
-        int size = this->container.size(); //Число вершин
-        //Неверный номер вершины
-        if (v1 < 0 || v2 < 0 || v1 >= size || v2 >= size)
-            return false;
-        if (v1 == v2) //Петля
-            return false;
-        if (this->container[v1][v2] != nullptr)
-            return true;
-        return false;
     }
 
     bool isEdge(int id1, int id2) override {

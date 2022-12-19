@@ -93,8 +93,12 @@ public:
         return vertex;
     };
 
-    bool DeleteV(V *vertex) {
-        return false;
+    bool DeleteV(V *pVertex) {
+        bool isDeleted = graphForm->deleteVertex(pVertex);
+        if (isDeleted) {
+            vertices.erase(pVertex->getIndex());
+        }
+        return isDeleted;
     };
 
     bool deleteE(V *vertex1, V *vertex2) {
@@ -109,38 +113,61 @@ public:
         return graphForm->insertEdge(vertex1, vertex2);
     };
 
-    /*void toList() {
-        // не лист
+    void toList() {
         if (!isDense()) {
-            GraphForm<V, E> *newData = new ListForm<V, E>(this->directed);
-            vector<V *> vector;
+            GraphForm<V, E> *newForm = new ListForm<V, E>(this->directed);
+            vector<V *> vector1;
             for (int i = 0; i < vertices.size(); ++i) {
-                V *vertex = newData->insertVertex();
-                vector.push_back(vertex);
+                V *vertex = newForm->insertVertex();
+                vertex->setName(vertices[i]->getName());
+                vertex->setData(vertices[i]->getData());
+                vector1.push_back(vertex);
             }
 
-            for (V *vertex1: vector) {
-                for (V *vertex2: vector) {
-                    if (graphForm->isEdge())
+
+            for (int i = 0; i < vertices.size(); ++i) {
+                for (int j = 0; j < vertices.size(); ++j) {
+                    if (graphForm->isEdge(i, j)) {
+                        E *newEdge = newForm->insertEdge(vector1[i], vector1[j]);
+                        if (newEdge) {
+                            E *oldEdge = graphForm->getEdge(vertices[i], vertices[j]);
+
+                        }
+                    }
                 }
             }
-
-            for (int i = 0; i < vertices.size(); ++i)
-                for (int j = 0; j < vertices.size(); ++j)
-                    if ((dynamic_cast<MatrixForm<V, E> *>(graphForm))->hasEdge(i, j))
-                        (dynamic_cast<ListForm<V, E> *>(newData))->insertEdge(i, j,
-                                                                              (dynamic_cast<MatrixForm<V, E> *>(graphForm))->getEdge(
-                                                                                      i, j));
             delete graphForm;
-            graphForm = newData;
+            graphForm = newForm;
+            vertices = vector1;
         }
     }
 
+
     void toMatrix() {
         if (isDense()) {
+            GraphForm<V, E> *newForm = new MatrixForm<V, E>(this->directed);
+            vector<V *> vector1;
+            for (int i = 0; i < vertices.size(); ++i) {
+                V *vertex = newForm->insertVertex();
+                vertex->setName(vertices[i]->getName());
+                vertex->setData(vertices[i]->getData());
+                vector1.push_back(vertex);
+            }
 
+            for (int i = 0; i < vertices.size(); ++i) {
+                for (int j = 0; j < vertices.size(); ++j) {
+                    if (graphForm->isEdge(i, j)) {
+                        E *e = newForm->insertEdge(vector1[i], vector1[j]);
+                        e->setWeight(getEdge(vertices[i], vertices[j])->getWeight());
+                        e->setData(getEdge(vertices[i], vertices[j])->getData());
+                    }
+                }
+            }
+            delete graphForm;
+            graphForm = newForm;
+            vertices = vector1;
         }
-    }*/
+    }
 
     std::string toString() {
         return graphForm->toString();

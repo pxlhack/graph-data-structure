@@ -7,47 +7,35 @@ template<class V, class E>
 class ListForm : public GraphForm<V, E> {
 public:
 
+    E *createEdge(int index1, int index2) override {
+        return nullptr;
+    }
+
     ListForm(bool directed) : GraphForm<V, E>(directed) {
     }
 
-    E *insertEdge(V *V1, V *V2) override {
-        int id1 = GraphForm<V, E>::getId(V1), id2 = GraphForm<V, E>::getId(V2);
-        V1->setIndex(id1);
-        V2->setIndex(id2);
-        E *edge = new E(V1, V2);
+    E *insertEdge(V *pVertex1, V *pVertex2) override {
+        int id1 = pVertex1->getIndex(), id2 = pVertex2->getIndex();
+
+        E *edge = new E(pVertex1, pVertex2);
         for (int i = 0; i < this->container[id1].size(); i++) {
-            if (!this->directed && isDesired(V1, V2, this->container[id1][i]))
+            if (!this->directed && isDesired(pVertex1, pVertex2, this->container[id1][i]))
                 return nullptr;
-            if (this->directed && ((this->container[id1][i])->getV1() == V1 && this->container[id1][i]->getV2() == V2))
+            if (this->directed &&
+                ((this->container[id1][i])->getV1() == pVertex1 && this->container[id1][i]->getV2() == pVertex2))
                 return nullptr;
         }
         this->container[id1].push_back(edge);
-        this->edge_number++;
+        this->edgeNumber++;
         if (!this->directed && id1 != id2)
             this->container[id2].push_back(edge);
         return edge;
     }
 
-//    bool insertEdge(int v1, int v2, E *t) {
-//            int size = edgeList.size();
-//            if (v1 < 0 || v2 < 0 || v1 >= size || v2 >= size)
-//                return false;
-//            if (v1 == v2 || hasEdge(v1, v2))  //Петля или ребро уже есть
-//                return false;
-//            //Вставляем ребро
-//            Node node;
-//            node.edge = t;
-//            node.v2 = v2;
-//            edgeList[v1].push_back(node);
-//            return true;
-//    }
-
-
 
     V *insertVertex() override {
         V *vertex = new V();
-        this->vertices.push_back(vertex);
-        this->vertex_number++;
+        vertex->setIndex(this->vertexNumber++);
         vector<E *> vector_;
         this->container.push_back(vector_);
         return vertex;
@@ -74,7 +62,7 @@ public:
                     if (isDesired(V1, V2, this->container[id2][i])) {
                         free(this->container[id2][i]);
                         this->container[id2].erase(this->container[id2].begin() + i);
-                        this->edge_number--;
+                        this->edgeNumber--;
                         return true;
                     }
             } else {
@@ -82,7 +70,7 @@ public:
                     if (this->container[id1][i]->getV1() == V1 && this->container[id1][i]->getV2() == V2) {
                         free(this->container[id1][i]);
                         this->container[id1].erase(this->container[id1].begin() + i);
-                        this->edge_number--;
+                        this->edgeNumber--;
                         return true;
                     }
             }

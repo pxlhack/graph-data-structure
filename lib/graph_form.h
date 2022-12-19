@@ -12,23 +12,25 @@ public:
 
     GraphForm(bool directed) {
         this->directed = directed;
-        this->edge_number = 0;
-        this->vertex_number = 0;
+        this->edgeNumber = 0;
+        this->vertexNumber = 0;
     }
 
     int getVertexNumber() {
-        return vertices.size();
+        return this->vertexNumber;
     }
 
     int getEdgeNumber() {
-        return edge_number;
+        return edgeNumber;
     }
 
     virtual V *insertVertex() = 0;
 
-    virtual E *insertEdge(V *V1, V *V2) = 0;
+    virtual E *insertEdge(V *pVertex1, V *pVertex2) = 0;
 
     virtual E *getEdge(V *V1, V *V2) = 0;
+
+    virtual E *createEdge(int index1, int index2) = 0;
 
     virtual bool deleteEdge(V *V1, V *V2) = 0;
 
@@ -41,23 +43,10 @@ public:
     virtual bool isEdge(int id1, int id2) = 0;
 
 protected:
-    int edge_number;
-    int vertex_number;
+    int vertexNumber;
+    int edgeNumber;
     bool directed;
-    vector<V *> vertices;
     vector<vector<E *>> container;
-
-
-    int getId(V *v) {
-        int id = -1;
-        for (int i = 0; i < vertex_number && id == -1; i++) {
-            if (vertices[i] == v) {
-                id = i;
-            }
-        }
-        return id;
-    }
-
 };
 
 
