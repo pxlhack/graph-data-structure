@@ -118,6 +118,7 @@ public:
 
 
     void toList() {
+        GraphForm<V, E> *form = graphForm;
         if (!isDense()) {
             GraphForm<V, E> *newForm = new ListForm<V, E>(this->directed);
             vector<V *> vector1;
@@ -128,11 +129,12 @@ public:
                 vector1.push_back(vertex);
             }
 
-            for (V *v1: vertices) {
-                for (V *v2: vertices) {
-                    E *edge = graphForm->getEdge(v1, v2);
+            for (int i = 0; i < vector1.size(); ++i) {
+                for (int j = 0; j < vector1.size(); ++j) {
+                    E *edge = graphForm->getEdge(vertices[i], vertices[j]);
+
                     if (edge) {
-                        E *newEdge = newForm->insertEdge(v1, v2);
+                        E *newEdge = newForm->insertEdge(vector1[i], vector1[j]);
                         if (newEdge) {
                             newEdge->setWeight(edge->getWeight());
                             newEdge->setData(edge->getData());
@@ -148,7 +150,8 @@ public:
     }
 
 
-    /*void toMatrix() {
+    void toMatrix() {
+        GraphForm<V, E> *form = graphForm;
         if (isDense()) {
             GraphForm<V, E> *newForm = new MatrixForm<V, E>(this->directed);
             vector<V *> vector1;
@@ -159,26 +162,39 @@ public:
                 vector1.push_back(vertex);
             }
 
-            for (int i = 0; i < vertices.size(); ++i) {
-                for (int j = 0; j < vertices.size(); ++j) {
-                    if (graphForm->isEdge(i, j,vertices)) {
-                        E *e = newForm->insertEdge(vector1[i], vector1[j]);
-                        e->setWeight(getEdge(vertices[i], vertices[j])->getWeight());
-                        e->setData(getEdge(vertices[i], vertices[j])->getData());
+
+
+            for (int i = 0; i < vector1.size(); ++i) {
+                for (int j = 0; j < vector1.size(); ++j) {
+                    E *edge = graphForm->getEdge(vertices[i], vertices[j]);
+
+                    if (edge) {
+                        E *newEdge = newForm->insertEdge(vector1[i], vector1[j]);
+                        if (newEdge) {
+                            newEdge->setWeight(edge->getWeight());
+                            newEdge->setData(edge->getData());
+                        }
                     }
                 }
             }
+
             delete graphForm;
             graphForm = newForm;
             vertices = vector1;
         }
-    }*/
+    }
 
+
+    friend std::ostream &operator<<(std::ostream &out, Graph<V, E> &g) {
+        out << g.toString();
+        return out;
+    };
+
+private:
     std::string toString() {
         return graphForm->toString(vertices);
     }
 
-private:
     bool directed;
     GraphForm<V, E> *graphForm;
     vector<V *> vertices;

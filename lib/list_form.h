@@ -55,7 +55,6 @@ public:
     E *getEdge(V *pVertex1, V *pVertex2) override {
         int id1 = pVertex1->getIndex();
         for (int i = 0; i < this->container[id1].size(); i++) {
-
             if (this->container[id1][i]->getV1() == pVertex1 && this->container[id1][i]->getV2() == pVertex2) {
                 return this->container[id1][i];
             }
