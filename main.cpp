@@ -28,22 +28,8 @@ int main() {
 
     cout << graph1.toString() << endl;
 
-    edge = graph1.getEdge(v[1], v[0]);
-    if (edge) {
-        cout << edge->getData() << endl;
-    }
+    graph1.toList();
 
-    graph1.deleteE(v[2], v[2]);
-    edge = graph1.getEdge(v[2], v[2]);
-    if (edge) {
-        cout << edge->getData() << endl;
-    }
-
-    edge = graph1.getEdge(v[3], v[1]);
-    if (edge) {
-        cout << edge->getData() << endl;
-    }
-    graph1.deleteV(v[2]);
     cout << graph1.toString() << endl;
 
     return 0;

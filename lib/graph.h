@@ -117,8 +117,7 @@ public:
     };
 
 
-
-    /*void toList() {
+    void toList() {
         if (!isDense()) {
             GraphForm<V, E> *newForm = new ListForm<V, E>(this->directed);
             vector<V *> vector1;
@@ -129,23 +128,24 @@ public:
                 vector1.push_back(vertex);
             }
 
-
-            for (int i = 0; i < vertices.size(); ++i) {
-                for (int j = 0; j < vertices.size(); ++j) {
-                    if (graphForm->isEdge(i, j,vertices)) {
-                        E *newEdge = newForm->insertEdge(vector1[i], vector1[j]);
+            for (V *v1: vertices) {
+                for (V *v2: vertices) {
+                    E *edge = graphForm->getEdge(v1, v2);
+                    if (edge) {
+                        E *newEdge = newForm->insertEdge(v1, v2);
                         if (newEdge) {
-                            E *oldEdge = graphForm->getEdge(vertices[i], vertices[j]);
-
+                            newEdge->setWeight(edge->getWeight());
+                            newEdge->setData(edge->getData());
                         }
                     }
                 }
             }
+
             delete graphForm;
             graphForm = newForm;
             vertices = vector1;
         }
-    }*/
+    }
 
 
     /*void toMatrix() {

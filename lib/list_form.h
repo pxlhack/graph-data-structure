@@ -20,16 +20,26 @@ public:
         E *edge = new E(pVertex1, pVertex2);
         E *oldEdge = getEdge(pVertex1, pVertex2);
 
+
         if (oldEdge) {
             return nullptr;
-        } else {
-            this->container[id1].push_back(edge);
-            this->edgeNumber++;
-            if (!this->directed && id1 != id2) {
-                this->container[id2].push_back(edge);
-            }
-            return edge;
         }
+
+        if (!this->directed) {
+            oldEdge = getEdge(pVertex2, pVertex1);
+            if (oldEdge) {
+                return nullptr;
+            }
+        }
+
+        this->container[id1].push_back(edge);
+        this->edgeNumber++;
+        if (!this->directed && id1 != id2) {
+            this->container[id2].push_back(edge);
+        }
+        return edge;
+
+
 
     }
 
@@ -44,10 +54,10 @@ public:
 
     E *getEdge(V *pVertex1, V *pVertex2) override {
         int id1 = pVertex1->getIndex();
-        vector<E *> edgeVector = this->container[id1];
-        for (int i = 0; i < edgeVector.size(); i++) {
-            if (edgeVector[i]->getV1() == pVertex1 && edgeVector[i]->getV2() == pVertex2) {
-                return edgeVector[i];
+        for (int i = 0; i < this->container[id1].size(); i++) {
+
+            if (this->container[id1][i]->getV1() == pVertex1 && this->container[id1][i]->getV2() == pVertex2) {
+                return this->container[id1][i];
             }
         }
         return nullptr;
