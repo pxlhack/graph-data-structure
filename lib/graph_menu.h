@@ -312,7 +312,7 @@ void graphMenu() {
                     break;
                 }
 
-
+                    //K
                 case 10: {
                     if (!g) {
                         cout << "-- Graph is not created! --\n";
@@ -327,6 +327,24 @@ void graphMenu() {
                     break;
                 }
 
+
+                case 11: {
+                    if (!g) {
+                        cout << "-- Graph is not created! --\n";
+                        break;
+                    }
+                    cout << g->isDense() << endl;
+                    break;
+                }
+
+                case 12: {
+                    if (!g) {
+                        cout << "-- Graph is not created! --\n";
+                        break;
+                    }
+                    cout << g->isDirected() << endl;
+                    break;
+                }
 
                 case 0: {
                     isWorked = false;
