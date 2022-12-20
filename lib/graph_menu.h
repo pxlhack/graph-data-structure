@@ -264,6 +264,26 @@ void graphMenu() {
                         break;
                     }
 
+                    cout << "Remove edge\n";
+                    int i1, i2;
+                    cout << "Enter index1:";
+                    cin >> i1;
+                    cout << "Enter index2:";
+                    cin >> i2;
+
+                    intVertex *v1 = g->get(i1);
+                    intVertex *v2 = g->get(i2);
+                    if (v1 && v2) {
+                        bool isDeleted = g->deleteE(v1, v2);
+                        if (isDeleted) {
+                            cout << "~~ Remove! ~~\n";
+                        } else {
+                            cout << "-- Edge is not exists! --\n";
+                        }
+                    } else {
+                        cout << "-- there are no such vertices! --\n";
+                    }
+
                     break;
                 }
 
