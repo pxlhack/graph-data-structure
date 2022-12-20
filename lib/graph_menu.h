@@ -17,7 +17,10 @@ using namespace std;
 
 #define HELP "Menu:\n\
 1) Create new graph and random fill\n\
-2) Draw graph\n\
+2) Create empty graph\n\
+3) Draw graph\n\
+4) Add vertex\n\
+5) Add edge\n\
 0) Exit\n"
 
 bool isPositiveValue(std::string_view s) {
@@ -68,7 +71,15 @@ void graphMenu() {
                     g = new intGraph(v, e, directed, dense);
                     break;
                 }
+
+                    // empty Graph
                 case 2: {
+                    g = new intGraph();
+                    break;
+                }
+
+                    //  draw graph
+                case 3: {
                     if (!g) {
                         cout << "-- Graph is not created! --\n";
                         break;
@@ -158,9 +169,27 @@ void graphMenu() {
 
                     break;
                 }
-                case 3: {
+
+                    //  add vertex
+                case 4: {
+                    if (!g) {
+                        cout << "-- Graph is not created! --\n";
+                        break;
+                    }
+
+                    cout << "Add vertex\n";
+                    int name, data;
+                    cout << "Enter name:";
+                    cin >> name;
+                    cout << "\nEnter data:";
+                    cin >> data;
+                    intVertex *v = g->insertV();
+                    v->setData(data);
+                    v->setName(name);
+
                     break;
                 }
+
                 case 0: {
                     isWorked = false;
                     break;
