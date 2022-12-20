@@ -49,7 +49,6 @@ public:
             free(this->container[id1][id2]);
             this->container[id1][id2] = nullptr;
             if (!this->directed) {
-                free(this->container[id2][id1]);
                 this->container[id2][id1] = nullptr;
             }
             return true;

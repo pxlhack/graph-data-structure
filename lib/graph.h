@@ -62,6 +62,8 @@ public:
             E *edge = graphForm->insertEdge(vertices[id1], vertices[id2]);
             if (edge != nullptr) {
                 i++;
+                edge->setData(rand() % 100);
+                edge->setWeight(rand() % 10);
             }
         }
         this->vertices = vertices;

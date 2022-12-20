@@ -21,6 +21,8 @@ using namespace std;
 3) Draw graph\n\
 4) Add vertex\n\
 5) Add edge\n\
+6) Remove vertex\n\
+7) Remove edge\n\
 0) Exit\n"
 
 bool isPositiveValue(std::string_view s) {
@@ -222,6 +224,46 @@ void graphMenu() {
                     } else {
                         cout << "-- there are no such vertices! --\n";
                     }
+                    break;
+                }
+
+                    //remove vertex
+                case 6: {
+                    if (!g) {
+                        cout << "-- Graph is not created! --\n";
+                        break;
+                    }
+                    if (g->getVertexNumber() == 0) {
+                        cout << "-- Graph is empty! --\n";
+                        break;
+                    }
+
+                    int i;
+                    cout << "Enter index:";
+                    cin >> i;
+
+                    intVertex *v = g->get(i);
+                    if (v) {
+                        g->deleteV(v);
+                        cout << "~~ Removed!~~\n";
+                        break;
+                    }
+
+                    cout << "-- there is no such vertex! --\n";
+                    break;
+                }
+
+                    //remove edge
+                case 7: {
+                    if (!g) {
+                        cout << "-- Graph is not created! --\n";
+                        break;
+                    }
+                    if (g->getVertexNumber() == 0) {
+                        cout << "-- Graph is empty! --\n";
+                        break;
+                    }
+
                     break;
                 }
 
