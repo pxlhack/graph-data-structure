@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <regex>
+#include <fstream>
 #include "graph.h"
 #include "vertex.h"
 #include "edge.h"
@@ -41,7 +42,7 @@ void graphMenu() {
             int num = stoul(command);
             switch (num) {
                 case 1: {
-                    g = new intGraph(6, 12, false, true);
+                    g = new intGraph(7, 13, false, true);
                     break;
                 }
                 case 2: {
@@ -55,21 +56,81 @@ void graphMenu() {
                     }
 
                     cout << "Vertices:\n";
-                    auto it = graph1.vBegin();
-                    while (it != graph1.vEnd()) {
-                        Vertex<int, int> vertex = *it;
+                    auto it = g->vBegin();
+                    while (it != g->vEnd()) {
+                        intVertex vertex = *it;
                         cout << vertex << endl;
 
                         ++it;
                     }
 
                     cout << "Edges:\n";
-                    auto it2 = graph1.eBegin();
-                    while (it2 != graph1.eEnd()) {
-                        Edge<Vertex<int, int>, int, int> edge = *it2;
+                    auto it2 = g->eBegin();
+                    while (it2 != g->eEnd()) {
+                        intEdge edge = *it2;
                         cout << edge << endl;
                         ++it2;
                     }
+
+                    ofstream fout;
+                    fout.open("../graph_type.txt");
+                    if (!fout.is_open()) {
+                        cout << "File is not opened!\n";
+                    } else {
+
+                        if (g->isDirected()) {
+                            fout << "1\n";
+                        } else {
+                            fout << "0\n";
+                        }
+
+                        fout << to_string(g->getVertexNumber()) + "\n";
+                        fout << to_string(g->getEdgeNumber()) + "\n";
+
+                    }
+
+                    fout.close();
+
+
+                    fout.open("../vertices.txt");
+                    if (!fout.is_open()) {
+                        cout << "File is not opened!\n";
+                    } else {
+
+                        auto it = g->vBegin();
+                        while (it != g->vEnd()) {
+                            intVertex vertex = *it;
+                            fout << to_string(vertex.getIndex()) + "\n";
+                            ++it;
+                        }
+
+
+                    }
+
+                    fout.close();
+
+                    fout.open("../edges.txt");
+                    if (!fout.is_open()) {
+                        cout << "File is not opened!\n";
+                    } else {
+
+                        auto it2 = g->eBegin();
+                        while (it2 != g->eEnd()) {
+                            intEdge edge = *it2;
+                            intVertex *v1 = edge.getV1();
+                            intVertex *v2 = edge.getV2();
+                            fout << to_string(v1->getIndex()) + "\n";
+                            fout << to_string(v2->getIndex()) + "\n";
+                            fout << to_string(edge.getWeight()) + "\n";
+                            ++it2;
+                        }
+
+
+                    }
+
+                    fout.close();
+
+                    system("python3 ../graph.py");
 
 
                     break;
