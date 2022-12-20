@@ -292,7 +292,10 @@ public:
     }
 
     V *get(int index) {
-        return vertices[index];
+        if (index >= 0 && index < vertices.size()) {
+            return vertices[index];
+        }
+        return nullptr;
     }
 
 

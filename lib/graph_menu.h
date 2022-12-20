@@ -181,12 +181,47 @@ void graphMenu() {
                     int name, data;
                     cout << "Enter name:";
                     cin >> name;
-                    cout << "\nEnter data:";
+                    cout << "Enter data:";
                     cin >> data;
                     intVertex *v = g->insertV();
                     v->setData(data);
                     v->setName(name);
 
+                    break;
+                }
+
+                    // add edge
+                case 5: {
+                    if (!g) {
+                        cout << "-- Graph is not created! --\n";
+                        break;
+                    }
+
+                    cout << "Add edge\n";
+                    int i1, i2;
+                    cout << "Enter index1:";
+                    cin >> i1;
+                    cout << "Enter index2:";
+                    cin >> i2;
+                    intVertex *v1 = g->get(i1);
+                    intVertex *v2 = g->get(i2);
+                    if (v1 && v2) {
+                        intEdge *edge = g->insertEdge(v1, v2);
+                        if (edge) {
+                            cout << "~~ Added! ~~\n";
+                            int data, weight;
+                            cout << "Enter data:";
+                            cin >> data;
+                            cout << "\nEnter weight:";
+                            cin >> weight;
+                            edge->setData(data);
+                            edge->setWeight(weight);
+                        } else {
+                            cout << "-- Edge already exists! --\n";
+                        }
+                    } else {
+                        cout << "-- there are no such vertices! --\n";
+                    }
                     break;
                 }
 
