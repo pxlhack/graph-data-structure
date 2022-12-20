@@ -104,7 +104,6 @@ void graphMenu() {
                     while (it != g->vEnd()) {
                         intVertex vertex = *it;
                         cout << vertex << endl;
-
                         ++it;
                     }
 
@@ -330,7 +329,6 @@ void graphMenu() {
                     break;
                 }
 
-
                 case 11: {
                     if (!g) {
                         cout << "-- Graph is not created! --\n";
@@ -385,6 +383,7 @@ void graphMenu() {
                                 } else {
                                     cout << "iterator is not set\n";
                                 }
+                                break;
                             }
                             case 3: {
                                 it = g->vBegin();
@@ -420,7 +419,6 @@ void graphMenu() {
                     break;
                 }
 
-
                 case 14: {
 
                     if (!g) {
@@ -432,18 +430,66 @@ void graphMenu() {
                         break;
                     }
 
+                    cout << "Edge iterator\n";
+                    bool isIterated = true;
+                    string itCommand;
 
-                    cout << "Edges:\n";
-                    auto it2 = g->eBegin();
-                    while (it2 != g->eEnd()) {
-                        intEdge edge = *it2;
-                        cout << edge << endl;
-                        ++it2;
-                    }
+                    auto it = g->eBegin();
+                    do {
+                        cout << "1) ++\n2) *\n3) begin\n4) end\n5) print\n0) exit\n";
+                        cout << ">";
+                        cin >> itCommand;
+                        int num = stoul(itCommand);
+                        switch (num) {
+                            case 1: {
+                                if (it != g->eEnd()) {
+                                    ++it;
+                                } else {
+                                    cout << "iterator is not set\n";
+                                }
+                                break;
+                            }
+                            case 2: {
+                                if (it != g->eEnd()) {
+                                    intEdge edge = *it;
+                                    cout << edge << endl;
+                                } else {
+                                    cout << "iterator is not set\n";
+                                }
+                                break;
+                            }
+                            case 3: {
+                                it = g->eBegin();
+                                break;
+                            }
+                            case 4: {
+                                it = g->eEnd();
+                                break;
+                            }
+                            case 5: {
+                                cout << "Edges:\n";
+                                auto it1 = g->eBegin();
+                                while (it1 != g->eEnd()) {
+                                    intEdge edge = *it1;
+                                    cout << edge << endl;
+                                    ++it1;
+                                }
+                                break;
+                            }
+                            case 0: {
+                                isIterated = false;
+                                break;
+                            }
+                            default : {
+                                cout << "!!! unknown command: " << itCommand << " !!!" << endl;
+                                break;
+                            }
+
+                        }
+                    } while (isIterated);
 
                     break;
                 }
-
 
                 case 15: {
 
@@ -456,14 +502,63 @@ void graphMenu() {
                         break;
                     }
 
+                    cout << "Outdoing edge iterator\n";
+                    bool isIterated = true;
+                    string itCommand;
 
-                    cout << "Edges:\n";
-                    auto it2 = g->oeBegin(g->get(0));
-                    while (it2 != g->oeEnd(g->get(0))) {
-                        intEdge edge = *it2;
-                        cout << edge << endl;
-                        ++it2;
-                    }
+                    auto it = g->oeBegin(g->get(0));
+                    do {
+                        cout << "1) ++\n2) *\n3) begin\n4) end\n5) print\n0) exit\n";
+                        cout << ">";
+                        cin >> itCommand;
+                        int num = stoul(itCommand);
+                        switch (num) {
+                            case 1: {
+                                if (it != g->oeEnd(g->get(0))) {
+                                    ++it;
+                                } else {
+                                    cout << "iterator is not set\n";
+                                }
+                                break;
+                            }
+                            case 2: {
+                                if (it != g->oeEnd(g->get(0))) {
+                                    intEdge edge = *it;
+                                    cout << edge << endl;
+                                } else {
+                                    cout << "iterator is not set\n";
+                                }
+                                break;
+                            }
+                            case 3: {
+                                it = g->oeBegin(g->get(0));
+                                break;
+                            }
+                            case 4: {
+                                it = g->oeEnd(g->get(0));
+                                break;
+                            }
+                            case 5: {
+                                cout << "Edges:\n";
+                                auto it1 = g->oeBegin(g->get(0));
+                                while (it1 != g->oeEnd(g->get(0))) {
+                                    intEdge edge = *it1;
+                                    cout << edge << endl;
+                                    ++it1;
+                                }
+                                break;
+                            }
+                            case 0: {
+                                isIterated = false;
+                                break;
+                            }
+                            default : {
+                                cout << "!!! unknown command: " << itCommand << " !!!" << endl;
+                                break;
+                            }
+
+                        }
+                    } while (isIterated);
 
                     break;
                 }
