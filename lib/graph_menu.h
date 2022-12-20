@@ -313,6 +313,20 @@ void graphMenu() {
                 }
 
 
+                case 10: {
+                    if (!g) {
+                        cout << "-- Graph is not created! --\n";
+                        break;
+                    }
+                    if (g->getVertexNumber() == 0) {
+                        cout << "-- Graph is empty! --\n";
+                        break;
+                    }
+
+                    cout << "K: " + to_string(g->K()) << endl;
+                    break;
+                }
+
 
                 case 0: {
                     isWorked = false;
