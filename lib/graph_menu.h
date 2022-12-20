@@ -28,6 +28,9 @@ using namespace std;
 10) K\n\
 11) Is dense\n\
 12) Is directed\n\
+13) Test vertex iterator\n\
+14) Test edge iterator\n\
+15) Test outdoing edge iterator\n\
 0) Exit\n"
 
 bool isPositiveValue(std::string_view s) {
@@ -343,6 +346,125 @@ void graphMenu() {
                         break;
                     }
                     cout << g->isDirected() << endl;
+                    break;
+                }
+
+                case 13: {
+                    if (!g) {
+                        cout << "-- Graph is not created! --\n";
+                        break;
+                    }
+                    if (g->getVertexNumber() == 0) {
+                        cout << "-- Graph is empty! --\n";
+                        break;
+                    }
+
+                    cout << "Vertex iterator\n";
+                    bool isIterated = true;
+                    string itCommand;
+
+                    auto it = g->vBegin();
+                    do {
+                        cout << "1) ++\n2) *\n3) begin\n4) end\n5) print\n0) exit\n";
+                        cout << ">";
+                        cin >> itCommand;
+                        int num = stoul(itCommand);
+                        switch (num) {
+                            case 1: {
+                                if (it != g->vEnd()) {
+                                    ++it;
+                                } else {
+                                    cout << "iterator is not set\n";
+                                }
+                                break;
+                            }
+                            case 2: {
+                                if (it != g->vEnd()) {
+                                    intVertex vertex = *it;
+                                    cout << vertex << endl;
+                                } else {
+                                    cout << "iterator is not set\n";
+                                }
+                            }
+                            case 3: {
+                                it = g->vBegin();
+                                break;
+                            }
+                            case 4: {
+                                it = g->vEnd();
+                                break;
+                            }
+                            case 5: {
+                                cout << "Vertices:\n";
+                                auto it1 = g->vBegin();
+                                while (it1 != g->vEnd()) {
+                                    intVertex vertex = *it1;
+                                    cout << vertex << endl;
+                                    ++it1;
+                                }
+                                break;
+                            }
+                            case 0: {
+                                isIterated = false;
+                                break;
+                            }
+                            default : {
+                                cout << "!!! unknown command: " << itCommand << " !!!" << endl;
+                                break;
+                            }
+
+                        }
+                    } while (isIterated);
+
+
+                    break;
+                }
+
+
+                case 14: {
+
+                    if (!g) {
+                        cout << "-- Graph is not created! --\n";
+                        break;
+                    }
+                    if (g->getVertexNumber() == 0) {
+                        cout << "-- Graph is empty! --\n";
+                        break;
+                    }
+
+
+                    cout << "Edges:\n";
+                    auto it2 = g->eBegin();
+                    while (it2 != g->eEnd()) {
+                        intEdge edge = *it2;
+                        cout << edge << endl;
+                        ++it2;
+                    }
+
+                    break;
+                }
+
+
+                case 15: {
+
+                    if (!g) {
+                        cout << "-- Graph is not created! --\n";
+                        break;
+                    }
+                    if (g->getVertexNumber() == 0) {
+                        cout << "-- Graph is empty! --\n";
+                        break;
+                    }
+
+
+                    cout << "Edges:\n";
+                    auto it2 = g->oeBegin(g->get(0));
+                    while (it2 != g->oeEnd(g->get(0))) {
+                        intEdge edge = *it2;
+                        cout << edge << endl;
+                        ++it2;
+                    }
+
                     break;
                 }
 
