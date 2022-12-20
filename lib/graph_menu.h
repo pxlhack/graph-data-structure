@@ -25,6 +25,9 @@ using namespace std;
 7) Remove edge\n\
 8) Vertex number\n\
 9) Edge number\n\
+10) K\n\
+11) Is dense\n\
+12) Is directed\n\
 0) Exit\n"
 
 bool isPositiveValue(std::string_view s) {
@@ -296,6 +299,16 @@ void graphMenu() {
                         break;
                     }
                     cout << "~~ Vertex number: " + to_string(g->getVertexNumber()) + " ~~\n";
+                    break;
+                }
+
+                    // edge number
+                case 9: {
+                    if (!g) {
+                        cout << "-- Graph is not created! --\n";
+                        break;
+                    }
+                    cout << "~~ Edge number: " + to_string(g->getEdgeNumber()) + " ~~\n";
                     break;
                 }
 
