@@ -7,6 +7,7 @@ template<class V, class E>
 class MatrixForm : public GraphForm<V, E> {
 
 public:
+
     MatrixForm(bool directed) : GraphForm<V, E>(directed) {}
 
     E *insertEdge(V *vertex1, V *vertex2) override {
@@ -100,9 +101,6 @@ public:
         }
         return sstr->str();
     }
-
-
-
 };
 
 

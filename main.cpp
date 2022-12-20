@@ -3,18 +3,29 @@
 #include "lib/vertex.h"
 #include "lib/edge.h"
 #include "lib/graph_menu.h"
+#include "lib/task_2.h"
 
 
 //todo menu
-//todo vIterator
-//todo eIterator
-//todo Iterator
 // todo task2
 // todo task3
 //todo fix toList toMatrix
 int main() {
+//    Graph<Vertex<int, int>, Edge<Vertex<int, int>, int, int>> graph1(4, 11, true, true);
+//    cout << graph1 << endl;
+//    graph1.task2(0);
+//    graph1.toMatrix();
+//    cout << graph1 << endl;
+
+//
+//    cout << *graph1 << endl;
+//    Task2<Vertex<int, int>, Edge<Vertex<int, int>, int, int>> *task2 = new Task2<Vertex<int, int>, Edge<Vertex<int, int>, int, int>>(
+//            graph1);
+
+//    cout << graph1 << endl;
     /*vector<Vertex<int, int> *> v;
     Graph<Vertex<int, int>, Edge<Vertex<int, int>, int, int>> graph1(6, 12, true, true);
+
     cout << graph1 << endl;
 
     vector<Edge<Vertex<int, int>, int, int> *> eV = graph1.getEdgesVector();

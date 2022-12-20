@@ -1,7 +1,6 @@
 #ifndef GRAPH_GRAPH_H
 #define GRAPH_GRAPH_H
 
-
 #include <vector>
 #include "vertex.h"
 #include "edge.h"
@@ -20,7 +19,6 @@ public:
         graphForm = new ListForm<V, E>(false);
     };
 
-
     Graph(int vertexNumber, bool directed = false, bool dense = true) {
         this->directed = directed;
 
@@ -34,7 +32,6 @@ public:
             graphForm->insertVertex();
         }
     }
-
 
     Graph(int vertexNumber, int edgeNumber, bool directed = false, bool dense = true) {
         this->directed = directed;
@@ -121,7 +118,6 @@ public:
     E *insertEdge(V *vertex1, V *vertex2) {
         return graphForm->insertEdge(vertex1, vertex2);
     };
-
 
     void toList() {
         if (!isDense()) {
@@ -302,6 +298,7 @@ public:
         return nullptr;
     }
 
+    GraphForm<V, E> *graphForm;
 
 private:
     std::string toString() {
@@ -309,7 +306,6 @@ private:
     }
 
     bool directed;
-    GraphForm<V, E> *graphForm;
     vector<V *> vertices;
 };
 

@@ -7,6 +7,7 @@
 #include "graph.h"
 #include "vertex.h"
 #include "edge.h"
+#include "task_2.h"
 
 #define intVertex Vertex<int, int>
 #define intEdge Edge<intVertex, int, int>
@@ -31,6 +32,10 @@ using namespace std;
 13) Test vertex iterator\n\
 14) Test edge iterator\n\
 15) Test outdoing edge iterator\n\
+16) Change Form\n\
+17) Task2\n\
+18) Task3\n\
+20) print graph\
 0) Exit\n"
 
 bool isPositiveValue(std::string_view s) {
@@ -560,6 +565,26 @@ void graphMenu() {
                         }
                     } while (isIterated);
 
+                    break;
+                }
+
+                case 17: {
+
+                    if (!g) {
+                        cout << "-- Graph is not created! --\n";
+                        break;
+                    }
+                    if (g->getVertexNumber() == 0) {
+                        cout << "-- Graph is empty! --\n";
+                        break;
+                    }
+                    Task2<intVertex, intEdge > t(g);
+
+                    break;
+                }
+
+                case 20: {
+                    cout << *g << endl;
                     break;
                 }
 

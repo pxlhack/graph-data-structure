@@ -7,7 +7,6 @@ template<class V, class E>
 class ListForm : public GraphForm<V, E> {
 public:
 
-
     ListForm(bool directed) : GraphForm<V, E>(directed) {
     }
 
@@ -126,6 +125,25 @@ public:
         return sstr->str();
     }
 
+    void task2(int start, int v, bool *visited, vector<int> &path) {
+        if (visited[v]) {
+            if (v == start) {
+                for (auto c: path)
+                    cout << c << " ";
+                cout << endl;
+                return;
+            } else
+                return;
+        }
+        visited[v] = true;
+
+        path.push_back(v);
+        for (int i = 0; i < this->container[v].size(); i++) {
+            task2(start, this->container[v][i]->getV2()->getIndex(), visited, path);
+        }
+        visited[v] = false;
+        path.pop_back();
+    }
 
 };
 
