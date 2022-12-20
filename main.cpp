@@ -2,6 +2,7 @@
 #include "lib/graph.h"
 #include "lib/vertex.h"
 #include "lib/edge.h"
+#include "lib/graph_menu.h"
 
 
 //todo menu
@@ -12,7 +13,7 @@
 // todo task3
 //todo fix toList toMatrix
 int main() {
-    vector<Vertex<int, int> *> v;
+    /*vector<Vertex<int, int> *> v;
     Graph<Vertex<int, int>, Edge<Vertex<int, int>, int, int>> graph1(6, 12, true, true);
     cout << graph1 << endl;
 
@@ -45,7 +46,9 @@ int main() {
         Edge<Vertex<int, int>, int, int> edge = *it3;
         cout << edge << endl;
         ++it3;
-    }
+    }*/
+
+    graphMenu();
 
 
     return 0;
