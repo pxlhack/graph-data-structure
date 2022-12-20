@@ -10,6 +10,7 @@
 //todo Iterator
 // todo task2
 // todo task3
+//todo fix toList toMatrix
 int main() {
     vector<Vertex<int, int> *> v;
     Graph<Vertex<int, int>, Edge<Vertex<int, int>, int, int>> graph1(6, 12, true, true);

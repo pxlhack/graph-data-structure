@@ -275,7 +275,6 @@ public:
         return Graph<V, E>::EdgeIterator(getEdgesVector(), -1);
     }
 
-
     vector<E *> getEdgesVector() {
         return graphForm->getEdgesVector();
     }
