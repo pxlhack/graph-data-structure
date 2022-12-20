@@ -23,6 +23,8 @@ using namespace std;
 5) Add edge\n\
 6) Remove vertex\n\
 7) Remove edge\n\
+8) Vertex number\n\
+9) Edge number\n\
 0) Exit\n"
 
 bool isPositiveValue(std::string_view s) {
@@ -286,6 +288,18 @@ void graphMenu() {
 
                     break;
                 }
+
+                    // vertex number
+                case 8: {
+                    if (!g) {
+                        cout << "-- Graph is not created! --\n";
+                        break;
+                    }
+                    cout << "~~ Vertex number: " + to_string(g->getVertexNumber()) + " ~~\n";
+                    break;
+                }
+
+
 
                 case 0: {
                     isWorked = false;

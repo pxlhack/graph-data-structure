@@ -53,6 +53,8 @@ public:
         vector<V *> vertices;
         for (int i = 0; i < vertexNumber; i++) {
             V *vertex = graphForm->insertVertex();
+            vertex->setName(rand() % 100);
+            vertex->setData(rand() % 30);
             vertices.push_back(vertex);
         }
         srand(time(nullptr));
