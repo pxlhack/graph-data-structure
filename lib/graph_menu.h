@@ -8,6 +8,7 @@
 #include "vertex.h"
 #include "edge.h"
 #include "task_2.h"
+#include "task_3.h"
 
 #define intVertex Vertex<int, int>
 #define intEdge Edge<intVertex, int, int>
@@ -582,6 +583,22 @@ void graphMenu() {
 
                     break;
                 }
+
+                case 18: {
+
+                    if (!g) {
+                        cout << "-- Graph is not created! --\n";
+                        break;
+                    }
+                    if (g->getVertexNumber() == 0) {
+                        cout << "-- Graph is empty! --\n";
+                        break;
+                    }
+                    Task3<intVertex, intEdge > t(g);
+
+                    break;
+                }
+
 
                 case 20: {
                     cout << *g << endl;

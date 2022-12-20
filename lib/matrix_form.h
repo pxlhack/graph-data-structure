@@ -2,6 +2,7 @@
 #define GRAPH_MATRIX_FORM_H
 
 #include "graph_form.h"
+#include <bits/stdc++.h>
 
 template<class V, class E>
 class MatrixForm : public GraphForm<V, E> {
@@ -100,6 +101,63 @@ public:
             *sstr << "\n";
         }
         return sstr->str();
+    }
+
+    int task3() {
+        int **m = getWeightMatrix();
+        int size = this->vertexNumber;
+        originalFloydWarshall(m, size);
+
+        int *maxWeights = new int[size];
+        for (int i = 0; i < size; ++i) {
+            maxWeights[i] = m[0][i];
+        }
+
+        for (int i = 1; i < size; i++) {
+            for (int j = 0; j < size; ++j) {
+                maxWeights[j] = max(maxWeights[j], m[i][j]);
+            }
+        }
+
+        int minWeight = maxWeights[0];
+        int minIndex = 0;
+        for (int i = 1; i < size; ++i) {
+            if (maxWeights[i] < minWeight) {
+                minWeight = maxWeights[i];
+                minIndex = 0;
+            }
+            minWeight = min(minWeight, maxWeights[i]);
+        }
+        return minIndex;
+    }
+
+    void originalFloydWarshall(int **m, int size) {
+
+        for (int k = 0; k < size; k++) {
+            for (int i = 0; i < size; i++) {
+                for (int j = 0; j < size; j++) {
+                    m[i][j] = min(m[i][j], m[i][k] + m[k][j]);
+                }
+            }
+        }
+
+    }
+
+private:
+    int **getWeightMatrix() {
+        int size = this->vertexNumber;
+        int **m = new int *[size];
+        for (int i = 0; i < size; i++) {
+            m[i] = new int[size];
+            for (int j = 0; j < size; j++) {
+                if (this->container[i][j]) {
+                    m[i][j] = this->container[i][j]->getWeight();
+                } else {
+                    m[i][j] = 1000;
+                }
+            }
+        }
+        return m;
     }
 };
 
