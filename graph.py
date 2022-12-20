@@ -11,5 +11,4 @@ pos = nx.get_node_attributes(G, 'pos')
 nx.draw(G,  pos, with_labels=1)
 labels = nx.get_edge_attributes(G, 'weight')
 nx.draw_networkx_edge_labels(G, pos, edge_labels=labels)
-
-plt.show()
+plt.savefig("graph.png")
