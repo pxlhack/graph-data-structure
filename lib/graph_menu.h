@@ -41,8 +41,31 @@ void graphMenu() {
         if (isValidCommand(command)) {
             int num = stoul(command);
             switch (num) {
+
+                // random Graph
                 case 1: {
-                    g = new intGraph(7, 13, false, true);
+                    cout << "Random graph:\n";
+                    cout << "Enter vertex number\n";
+                    unsigned v = 0;
+                    cout << ">";
+
+                    cin >> v;
+                    cout << "Enter edge number \n";
+                    unsigned e = 0;
+                    cout << ">";
+                    cin >> e;
+
+                    cout << "Enter 0) not directed 1) directed \n";
+                    bool directed;
+                    cout << ">";
+                    cin >> directed;
+
+                    cout << "Enter 0) not dense 1) dense \n";
+                    bool dense;
+                    cout << ">";
+                    cin >> dense;
+
+                    g = new intGraph(v, e, directed, dense);
                     break;
                 }
                 case 2: {
