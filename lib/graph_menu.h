@@ -36,7 +36,7 @@ using namespace std;
 16) Change Form\n\
 17) Task2\n\
 18) Task3\n\
-20) print graph\
+20) print graph\n\
 0) Exit\n"
 
 bool isPositiveValue(std::string_view s) {
@@ -179,7 +179,7 @@ void graphMenu() {
 
                     fout.close();
 
-                    system("python3 ../graph.py");
+                    system("python ../graph.py");
 
 
                     break;
