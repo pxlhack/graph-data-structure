@@ -128,12 +128,9 @@ public:
     void task2(int start, int v, bool *visited, vector<int> &path) {
         if (visited[v]) {
             if (v == start) {
-                for (auto c: path)
-                    cout << c << " ";
-                cout << endl;
-                return;
-            } else
-                return;
+                cyclesVector.push_back(path);
+            }
+            return;
         }
         visited[v] = true;
 
@@ -145,6 +142,16 @@ public:
         path.pop_back();
     }
 
+    vector<vector<int>> &getCyclesVector() {
+        return cyclesVector;
+    }
+
+    void clearCycles() {
+        cyclesVector.clear();
+    }
+
+private:
+    vector<vector<int>> cyclesVector;
 };
 
 

@@ -4,7 +4,7 @@ import networkx as nx
 import matplotlib.pyplot as plt
 
 graph_chars = []
-typeFile = open('../graph_type.txt', 'r')
+typeFile = open('graph_type.txt', 'r')
 for line in typeFile:
     graph_chars.append(int(line))
 typeFile.close()
@@ -18,13 +18,13 @@ if isDirected == 1:
     G = nx.DiGraph()
 
 vertices = []
-vFile = open('../vertices.txt', 'r')
+vFile = open('vertices.txt', 'r')
 for line in vFile:
     vertices.append(int(line))
 vFile.close()
 
 eArray = []
-eFile = open('../edges.txt', 'r')
+eFile = open('edges.txt', 'r')
 for line in eFile:
     eArray.append(int(line))
 eFile.close()
